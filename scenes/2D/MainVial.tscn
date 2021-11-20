@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/images/main_vial.svg" type="Texture" id=1]
+[ext_resource path="res://scripts/2D/MainVial.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 161.541, 216 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 20, 20 )
+
+[node name="MainVial" type="KinematicBody2D"]
+position = Vector2( 549.213, 1920.86 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -5.21301, -119.79 )
+scale = Vector2( 0.425554, 0.425957 )
+texture = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 2.78699, -23.79 )
+polygon = PoolVector2Array( -168, -272, -168, 128, 152, 128, 152, -272, 128, -272, 128, 104, -144, 104, -144, -272 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+space_override = 3
+gravity = 703.477
+linear_damp = 9.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -6.75391, -112.86 )
+shape = SubResource( 1 )
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2( -165.213, -320.86 )
+scale = Vector2( 7.92793, 10.5515 )
+shape = SubResource( 2 )
+
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
+[connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
