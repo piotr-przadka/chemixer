@@ -1,12 +1,78 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/2D/Blob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Chemixer.gd" type="Script" id=3]
 
+[sub_resource type="StyleBoxEmpty" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [node name="Chemixer" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="SmallVialSpawnPoint" type="Position2D" parent="."]
+position = Vector2( 800, 416 )
+
 [node name="MainVial" parent="." instance=ExtResource( 2 )]
+position = Vector2( 549.213, 1880 )
 
 [node name="Blob" parent="." instance=ExtResource( 1 )]
+
+[node name="GUI" type="Control" parent="."]
+margin_top = 2032.0
+margin_right = 1080.0
+margin_bottom = 2168.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/PanelContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1070.0
+margin_bottom = 126.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewVialButton" type="Button" parent="GUI/PanelContainer/HBoxContainer"]
+margin_right = 320.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "New Small Vial"
+
+[node name="ClearVialsButton" type="Button" parent="GUI/PanelContainer/HBoxContainer"]
+margin_left = 370.0
+margin_right = 690.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Clear Small Vials"
+
+[node name="ClearFluidsButton" type="Button" parent="GUI/PanelContainer/HBoxContainer"]
+margin_left = 740.0
+margin_right = 1060.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Clear Fluids"
+
+[connection signal="pressed" from="GUI/PanelContainer/HBoxContainer/NewVialButton" to="." method="_on_NewVialButton_pressed"]
+[connection signal="pressed" from="GUI/PanelContainer/HBoxContainer/ClearVialsButton" to="." method="_on_ClearVialsButton_pressed"]
+[connection signal="pressed" from="GUI/PanelContainer/HBoxContainer/ClearFluidsButton" to="." method="_on_ClearFluidsButton_pressed"]

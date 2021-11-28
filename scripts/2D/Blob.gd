@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 func _ready():
-	pass
+	add_to_group("water")
 
 
 func _draw():
