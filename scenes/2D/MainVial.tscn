@@ -23,7 +23,6 @@ position = Vector2( 2.78699, -23.79 )
 polygon = PoolVector2Array( -168, -272, -168, 128, 152, 128, 152, -272, 128, -272, 128, 104, -144, 104, -144, -272 )
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 space_override = 3
 gravity = 703.477
 linear_damp = 9.0
@@ -37,5 +36,7 @@ position = Vector2( -165.213, -320.86 )
 scale = Vector2( 7.92793, 10.5515 )
 shape = SubResource( 2 )
 
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]

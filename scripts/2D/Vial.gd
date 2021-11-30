@@ -5,6 +5,8 @@ var touching : bool = false
 var dragged_position_delta
 var touch_offset
 
+var type = "small_vial"
+
 func _ready():
 	add_to_group("vials")
 

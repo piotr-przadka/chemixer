@@ -14,10 +14,15 @@ config/name="Chemixer"
 run/main_scene="res://Chemixer.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GHelper="*res://scripts/GHelper.gd"
+
 [display]
 
 window/size/width=1080
 window/size/height=2160
+window/size/resizable=false
 window/handheld/orientation="portrait"
 
 [input_devices]

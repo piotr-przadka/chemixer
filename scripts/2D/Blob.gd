@@ -1,9 +1,19 @@
 extends RigidBody2D
 
+var compound
+var volume = 10
+var type = "blob"
+var color
+
 func _ready():
-	add_to_group("water")
+	pass
 
 
 func _draw():
-	draw_circle(Vector2(0, 0), $CollisionShape2D.shape.radius * 3, Color(255, 0, 0))
+	draw_circle(Vector2(0, 0), $CollisionShape2D.shape.radius * 3, color)
 
+
+func set_compound(init_compound):
+	compound = init_compound
+	color = GHelper.compounds[compound]["color"]
+	add_to_group(compound)
