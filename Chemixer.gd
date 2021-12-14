@@ -72,3 +72,9 @@ func recalculate_mixture_contents():
 
 func _on_CompoundSelect_item_selected(index):
 	current_compound = GHelper.compounds.keys()[index]
+
+
+func _on_SpawnBlobButton_pressed():
+	var new_blob = blob_scene.instance()
+	new_blob.set_compound(current_compound)
+	add_child(new_blob)

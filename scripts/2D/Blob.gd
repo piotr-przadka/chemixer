@@ -10,7 +10,7 @@ func _ready():
 
 
 func _draw():
-	draw_circle(Vector2(0, 0), $CollisionShape2D.shape.radius * 3, color)
+	draw_circle(Vector2(0, 0), $CollisionShape2D.shape.radius * 2, color)
 
 
 func set_compound(init_compound):

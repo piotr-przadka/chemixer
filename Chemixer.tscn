@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Chemixer.gd" type="Script" id=3]
+[ext_resource path="res://assets/images/background.svg" type="Texture" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 10.0
@@ -19,6 +20,24 @@ bg_color = Color( 0.968627, 0.431373, 0.431373, 0.0941176 )
 
 [node name="Chemixer" type="Node2D"]
 script = ExtResource( 3 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background" type="TextureRect" parent="ParallaxBackground"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -1080.0
+margin_right = 540.0
+margin_bottom = 1120.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SmallVialSpawnPoint" type="Position2D" parent="."]
 position = Vector2( 800, 416 )
@@ -58,7 +77,7 @@ __meta__ = {
 }
 
 [node name="NewVialButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_right = 227.0
+margin_right = 172.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -74,23 +93,31 @@ __meta__ = {
 }
 
 [node name="ClearVialsButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 277.0
-margin_right = 505.0
+margin_left = 222.0
+margin_right = 394.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Clear Small Vials"
 
+[node name="SpawnBlobButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
+margin_left = 444.0
+margin_right = 616.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Spawn Blob"
+
 [node name="ClearFluidsButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 555.0
-margin_right = 782.0
+margin_left = 666.0
+margin_right = 838.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Clear Fluids"
 
 [node name="CompoundSelect" type="OptionButton" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 832.0
+margin_left = 888.0
 margin_right = 1060.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
@@ -126,5 +153,6 @@ align = 1
 [connection signal="blob_poured_out" from="MainVial" to="." method="_on_MainVial_blob_poured_out"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/NewVialButton" to="." method="_on_NewVialButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/ClearVialsButton" to="." method="_on_ClearVialsButton_pressed"]
+[connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/SpawnBlobButton" to="." method="_on_SpawnBlobButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/ClearFluidsButton" to="." method="_on_ClearFluidsButton_pressed"]
 [connection signal="item_selected" from="GUI/ControlPanel/HBoxContainer/CompoundSelect" to="." method="_on_CompoundSelect_item_selected"]
