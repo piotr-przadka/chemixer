@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Chemixer.gd" type="Script" id=3]
 [ext_resource path="res://assets/images/background.svg" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/default.tres" type="DynamicFont" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 10.0
@@ -16,7 +17,7 @@ content_margin_left = 15.0
 content_margin_right = 15.0
 content_margin_top = 15.0
 content_margin_bottom = 15.0
-bg_color = Color( 0.968627, 0.431373, 0.431373, 0.0941176 )
+bg_color = Color( 0.968627, 0.431373, 0.431373, 0.623529 )
 
 [node name="Chemixer" type="Node2D"]
 script = ExtResource( 3 )
@@ -77,14 +78,18 @@ __meta__ = {
 }
 
 [node name="NewVialButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_right = 172.0
+margin_right = 151.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="GUI/ControlPanel/HBoxContainer/NewVialButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 5 )
 text = "New Small Vial"
 align = 1
 valign = 1
@@ -93,35 +98,39 @@ __meta__ = {
 }
 
 [node name="ClearVialsButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 222.0
-margin_right = 394.0
+margin_left = 201.0
+margin_right = 398.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
 text = "Clear Small Vials"
 
 [node name="SpawnBlobButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 444.0
-margin_right = 616.0
+margin_left = 448.0
+margin_right = 600.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
 text = "Spawn Blob"
 
 [node name="ClearFluidsButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 666.0
-margin_right = 838.0
+margin_left = 650.0
+margin_right = 802.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
 text = "Clear Fluids"
 
 [node name="CompoundSelect" type="OptionButton" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 888.0
+margin_left = 852.0
 margin_right = 1060.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
 text = "Select Compound"
 script = ExtResource( 1 )
 
@@ -145,7 +154,8 @@ size_flags_vertical = 3
 
 [node name="MaterialsLabel" type="Label" parent="GUI/CurrentStats/VBoxContainer"]
 margin_right = 394.0
-margin_bottom = 14.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 5 )
 text = "Currently used materials:"
 align = 1
 
