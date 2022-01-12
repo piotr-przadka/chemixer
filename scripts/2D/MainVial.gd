@@ -24,6 +24,12 @@ func _input(event):
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
 		position = event.position + touch_offset
+	elif event is InputEventKey and touching:
+		if event.pressed:
+			if event.scancode == KEY_LEFT:
+				rotate(-0.05)
+			elif event.scancode == KEY_RIGHT:
+				rotate(0.05)
 		
 
 
@@ -37,10 +43,14 @@ func _on_TouchScreenButton_released():
 
 
 func _on_Area2D_body_entered(body):
+	print("entered")
 	if body.type == 'blob':
+		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
 
 
 func _on_Area2D_body_exited(body):
+	print("exited")
 	if body.type == 'blob':
+		body.reset_collision_plane()
 		emit_signal("blob_poured_out", body)

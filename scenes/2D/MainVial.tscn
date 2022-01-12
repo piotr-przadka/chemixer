@@ -11,6 +11,8 @@ extents = Vector2( 20, 20 )
 
 [node name="MainVial" type="KinematicBody2D"]
 position = Vector2( 549.213, 1920.86 )
+collision_layer = 8
+collision_mask = 8
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -23,6 +25,8 @@ position = Vector2( 2.78699, -23.79 )
 polygon = PoolVector2Array( -168, -272, -168, 128, 152, 128, 152, -272, 128, -272, 128, 104, -144, 104, -144, -272 )
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
 space_override = 3
 gravity = 703.477
 linear_damp = 9.0

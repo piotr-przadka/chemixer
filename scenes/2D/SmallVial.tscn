@@ -11,6 +11,8 @@ extents = Vector2( 5, 5 )
 
 [node name="Vial" type="KinematicBody2D"]
 position = Vector2( 549.213, 1920.86 )
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -23,6 +25,8 @@ position = Vector2( 2.78699, -23.79 )
 polygon = PoolVector2Array( -88, -265.07, -88, 118.93, 88, 118.93, 88, -265.07, 72, -265.07, 72, 102.93, -64, 102.93, -64, -265.07 )
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 space_override = 3
 gravity = 703.477
 linear_damp = 9.0
@@ -34,7 +38,10 @@ shape = SubResource( 1 )
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2( -85.213, -312.86 )
 scale = Vector2( 17.8305, 41.6037 )
+z_index = 1
 shape = SubResource( 2 )
 
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]

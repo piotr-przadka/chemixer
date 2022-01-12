@@ -1,5 +1,7 @@
 extends Node2D
 
+# TODO: something is f'd up with the collision changes on entering and exiting the vial
+
 onready var blob_scene = preload("res://scenes/2D/Blob.tscn")
 onready var small_vial_scene = preload("res://scenes/2D/SmallVial.tscn")
 onready var compound_entry_scene = preload("res://scenes/GUI/MaterialEntry.tscn")
@@ -7,12 +9,18 @@ onready var compound_entry_scene = preload("res://scenes/GUI/MaterialEntry.tscn"
 var current_compound = "water"
 var mixture_volume = 0
 var mixture_contents = {}
+var MAX_SMALL_VIAL_COUNT = 3
 
 signal update_entry(compound, volume, percent)
 
 
 func _ready():
-	pass
+	var new_blob = blob_scene.instance()
+	new_blob.set_compound(current_compound)
+	add_child(new_blob)
+	new_blob = blob_scene.instance()
+	new_blob.set_compound(current_compound)
+	add_child(new_blob)
 
 
 func _unhandled_input(event):
@@ -24,9 +32,11 @@ func _unhandled_input(event):
 
 
 func _on_NewVialButton_pressed():
-	var new_small_vial = small_vial_scene.instance()
-	add_child(new_small_vial)
-	new_small_vial.position = $SmallVialSpawnPoint.position
+	if get_small_vial_count() <= MAX_SMALL_VIAL_COUNT:
+		var new_small_vial = small_vial_scene.instance()
+		new_small_vial.init(get_small_vial_count())
+		add_child(new_small_vial)
+		new_small_vial.position = $SmallVialSpawnPoint.position
 
 
 func _on_ClearVialsButton_pressed():
@@ -78,3 +88,7 @@ func _on_SpawnBlobButton_pressed():
 	var new_blob = blob_scene.instance()
 	new_blob.set_compound(current_compound)
 	add_child(new_blob)
+
+
+func get_small_vial_count():
+	return get_tree().get_nodes_in_group('vials').size()
