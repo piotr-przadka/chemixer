@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Chemixer.gd" type="Script" id=3]
 [ext_resource path="res://assets/images/background.svg" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/default.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scripts/TaskController.gd" type="Script" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 10.0
@@ -158,6 +159,9 @@ margin_bottom = 42.0
 custom_fonts/font = ExtResource( 5 )
 text = "Currently used materials:"
 align = 1
+
+[node name="TaskController" type="Node" parent="."]
+script = ExtResource( 6 )
 
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="blob_poured_in" from="MainVial" to="." method="_on_MainVial_blob_poured_in"]

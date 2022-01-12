@@ -63,15 +63,33 @@ func _on_MainVial_blob_poured_in(blob):
 		
 
 func _on_MainVial_blob_poured_out(blob):
+	
+	for compound in mixture_contents.keys():
+		mixture_contents[compound] -= stepify(float(mixture_contents[compound]) / mixture_volume, 0.01) * blob.volume
+		print(mixture_contents[compound])
+		print(mixture_contents)
+		if int(mixture_contents[compound]) <= 0:
+			print(mixture_contents)
+			mixture_contents.erase(compound)
+			print(mixture_contents)
+			for entry in get_tree().get_nodes_in_group("entries"):
+				if entry.compound == compound:
+					print(compound)
+					entry.queue_free()
+					
 	mixture_volume -= blob.volume
-	mixture_contents[blob.compound] -= blob.volume
-	if mixture_contents[blob.compound] <= 0:
-		mixture_contents.erase(blob.compound)
-		for entry in get_tree().get_nodes_in_group("entries"):
-			if entry.compound == blob.compound:
-				entry.queue_free()
-	else:
+	if mixture_volume > 0:
 		recalculate_mixture_contents()
+#	mixture_contents[blob.compound] -= blob.volume
+	
+	
+#	if mixture_contents[blob.compound] <= 0:
+#		mixture_contents.erase(blob.compound)
+#		for entry in get_tree().get_nodes_in_group("entries"):
+#			if entry.compound == blob.compound:
+#				entry.queue_free()
+#	else:
+#		recalculate_mixture_contents()
 
 
 func recalculate_mixture_contents():
