@@ -1,17 +1,17 @@
 extends Node2D
 
-# TODO: something is f'd up with the collision changes on entering and exiting the vial
-
 onready var blob_scene = preload("res://scenes/2D/Blob.tscn")
 onready var small_vial_scene = preload("res://scenes/2D/SmallVial.tscn")
 onready var compound_entry_scene = preload("res://scenes/GUI/MaterialEntry.tscn")
 
 var current_compound = "water"
+var current_color = GHelper.compounds[current_compound]['color']
 var mixture_volume = 0
 var mixture_contents = {}
 var MAX_SMALL_VIAL_COUNT = 3
 
 signal update_entry(compound, volume, percent)
+signal mixture_color_changed(color)
 
 
 func _ready():
@@ -92,3 +92,48 @@ func _on_SpawnBlobButton_pressed():
 
 func get_small_vial_count():
 	return get_tree().get_nodes_in_group('vials').size()
+
+
+func _on_MainVial_mix():
+	if mixture_contents.keys().size() < 2:
+		return
+	var avg_color = calculate_avg_color()
+	for compound in mixture_contents.keys():
+		for blob in get_tree().get_nodes_in_group(compound):
+			blob.set_color(avg_color)
+	emit_signal("mixture_color_changed", avg_color)
+
+
+func calculate_avg_color():
+	var compound_blob_count
+	var compound_blob_color
+	var colors = {
+		'r': [],
+		'g': [],
+		'b': []
+	}
+	var blob_sum = 0
+
+	for compound in mixture_contents.keys():
+		compound_blob_count = get_tree().get_nodes_in_group(compound).size()
+		compound_blob_color = GHelper.compounds[compound]['color']
+		colors['r'].append(compound_blob_color.r8 * compound_blob_count)
+		colors['g'].append(compound_blob_color.g8 * compound_blob_count)
+		colors['b'].append(compound_blob_color.b8 * compound_blob_count)
+		blob_sum += compound_blob_count
+	colors['r'] = GHelper.average(colors['r'], blob_sum)
+	colors['g'] = GHelper.average(colors['g'], blob_sum)
+	colors['b'] = GHelper.average(colors['b'], blob_sum)
+	
+	return Color8(colors['r'], colors['g'], colors['b'])
+	
+
+
+
+
+
+
+
+
+
+

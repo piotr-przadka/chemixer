@@ -7,8 +7,12 @@ var touch_offset
 
 var type = "main_vial"
 
+onready var mix_timer = $MixTimer
+onready var mix_particles = $MixParticles
+
 signal blob_poured_in(blob)
 signal blob_poured_out(blob)
+signal mix()
 
 func _ready():
 	pass
@@ -43,14 +47,22 @@ func _on_TouchScreenButton_released():
 
 
 func _on_Area2D_body_entered(body):
-	print("entered")
+	mix_timer.start()
 	if body.type == 'blob':
 		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
 
 
 func _on_Area2D_body_exited(body):
-	print("exited")
 	if body.type == 'blob':
 		body.reset_collision_plane()
 		emit_signal("blob_poured_out", body)
+
+
+func _on_MixTimer_timeout():
+	emit_signal('mix')
+
+
+func _on_Chemixer_mixture_color_changed(color):
+	mix_particles.process_material.color = color
+	mix_particles.emitting = true

@@ -49,7 +49,7 @@ margin_right = 94.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
-text = "ml"
+text = "g"
 __meta__ = {
 "_edit_use_anchors_": false
 }

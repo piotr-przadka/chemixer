@@ -159,8 +159,10 @@ custom_fonts/font = ExtResource( 5 )
 text = "Currently used materials:"
 align = 1
 
+[connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="blob_poured_in" from="MainVial" to="." method="_on_MainVial_blob_poured_in"]
 [connection signal="blob_poured_out" from="MainVial" to="." method="_on_MainVial_blob_poured_out"]
+[connection signal="mix" from="MainVial" to="." method="_on_MainVial_mix"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/NewVialButton" to="." method="_on_NewVialButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/ClearVialsButton" to="." method="_on_ClearVialsButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/SpawnBlobButton" to="." method="_on_SpawnBlobButton_pressed"]
