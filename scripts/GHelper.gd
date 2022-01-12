@@ -97,6 +97,9 @@ var compounds = {
 	},
 }
 
+enum STEP_TYPES { POUR_IN, POUR_OUT, MIX }
+
+
 func _ready():
 	pass # Replace with function body.
 

@@ -60,6 +60,7 @@ func _on_Area2D_body_exited(body):
 
 
 func _on_MixTimer_timeout():
+	print('mixing!')
 	emit_signal('mix')
 
 
