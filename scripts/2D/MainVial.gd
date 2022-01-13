@@ -47,16 +47,24 @@ func _on_TouchScreenButton_released():
 
 
 func _on_Area2D_body_entered(body):
-	mix_timer.start()
 	if body.type == 'blob':
+		print('entered')	
+		mix_timer.start(10)
 		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
+	elif body.type == 'stirring_rod':
+		print('stirring_rod detected')
+		mix_timer.start(3)
 
 
 func _on_Area2D_body_exited(body):
 	if body.type == 'blob':
+		print('exited')	
 		body.reset_collision_plane()
 		emit_signal("blob_poured_out", body)
+	elif body.type == 'stirring_rod':
+		print('stirring_rod exited')
+		mix_timer.stop()
 
 
 func _on_MixTimer_timeout():

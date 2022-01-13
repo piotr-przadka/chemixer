@@ -24,7 +24,7 @@ func set_compound(init_compound):
 
 
 func set_collision_plane(layer):
-	for layer_index in range(0, 4):
+	for layer_index in range(0, 5):
 		if layer == layer_index:
 			set_collision_layer_bit(layer_index, true)
 			set_collision_mask_bit(layer_index, true)
@@ -34,7 +34,7 @@ func set_collision_plane(layer):
 
 
 func reset_collision_plane():
-	for layer_index in range(0, 4):
+	for layer_index in range(0, 5):
 		set_collision_layer_bit(layer_index, true)
 		set_collision_mask_bit(layer_index, true)
 

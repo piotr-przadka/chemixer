@@ -29,11 +29,13 @@ func _ready():
 
 
 func _unhandled_input(event):
-	if event is InputEventScreenTouch or event is InputEventMouseButton:
-		if event.pressed:
-			var new_blob = blob_scene.instance()
-			new_blob.set_compound(current_compound)
-			add_child(new_blob)
+#	if event is InputEventScreenTouch or event is InputEventMouseButton:
+#		if event.pressed:
+#			var new_blob = blob_scene.instance()
+#			new_blob.set_compound(current_compound)
+#			add_child(new_blob)
+#			new_blob.position = $BlobSpawnPoint.position
+	pass
 
 
 func _on_NewVialButton_pressed():
@@ -108,6 +110,7 @@ func _on_SpawnBlobButton_pressed():
 	var new_blob = blob_scene.instance()
 	new_blob.set_compound(current_compound)
 	add_child(new_blob)
+	new_blob.position = $BlobSpawnPoint.position
 
 
 func get_small_vial_count():

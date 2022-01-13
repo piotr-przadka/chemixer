@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/images/background.svg" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/default.tres" type="DynamicFont" id=5]
 [ext_resource path="res://scripts/TaskController.gd" type="Script" id=6]
+[ext_resource path="res://scenes/2D/StirringRod.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 10.0
@@ -43,6 +44,9 @@ __meta__ = {
 
 [node name="SmallVialSpawnPoint" type="Position2D" parent="."]
 position = Vector2( 800, 416 )
+
+[node name="BlobSpawnPoint" type="Position2D" parent="."]
+position = Vector2( 812.992, 218.564 )
 
 [node name="MainVial" parent="." instance=ExtResource( 2 )]
 position = Vector2( 549.213, 1880 )
@@ -182,6 +186,8 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="StirringRod" parent="." instance=ExtResource( 7 )]
 
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="task_ready" from="." to="TaskController" method="_on_Chemixer_task_ready"]

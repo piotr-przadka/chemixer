@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/2D/MainVial.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 161.541, 216 )
+extents = Vector2( 152, 196 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 20 )
@@ -44,13 +44,13 @@ polygon = PoolVector2Array( -168, -272, -168, 128, 152, 128, 152, -272, 128, -27
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 8
+collision_mask = 24
 space_override = 3
 gravity = 703.477
 linear_damp = 9.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -6.75391, -112.86 )
+position = Vector2( -5.21301, -100.86 )
 shape = SubResource( 1 )
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
