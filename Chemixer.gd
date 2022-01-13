@@ -22,6 +22,9 @@ func _ready():
 	new_blob = blob_scene.instance()
 	new_blob.set_compound(current_compound)
 	add_child(new_blob)
+	var dir = Directory.new()
+	dir.open("user://")
+	dir.make_dir("tasks")
 
 
 func _unhandled_input(event):

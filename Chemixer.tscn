@@ -79,7 +79,7 @@ __meta__ = {
 }
 
 [node name="NewVialButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_right = 151.0
+margin_right = 50.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -99,8 +99,8 @@ __meta__ = {
 }
 
 [node name="ClearVialsButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 201.0
-margin_right = 398.0
+margin_left = 100.0
+margin_right = 297.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -108,8 +108,8 @@ custom_fonts/font = ExtResource( 5 )
 text = "Clear Small Vials"
 
 [node name="SpawnBlobButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 448.0
-margin_right = 600.0
+margin_left = 347.0
+margin_right = 482.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -117,8 +117,8 @@ custom_fonts/font = ExtResource( 5 )
 text = "Spawn Blob"
 
 [node name="ClearFluidsButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 650.0
-margin_right = 802.0
+margin_left = 532.0
+margin_right = 676.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -126,14 +126,21 @@ custom_fonts/font = ExtResource( 5 )
 text = "Clear Fluids"
 
 [node name="CompoundSelect" type="OptionButton" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 852.0
-margin_right = 1060.0
+margin_left = 726.0
+margin_right = 934.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 5 )
 text = "Select Compound"
 script = ExtResource( 1 )
+
+[node name="TaskListButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
+margin_left = 984.0
+margin_right = 1060.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 50, 0 )
+text = "show files"
 
 [node name="CurrentStats" type="PanelContainer" parent="GUI"]
 margin_left = 24.0
@@ -163,6 +170,19 @@ align = 1
 [node name="TaskController" type="Node" parent="."]
 script = ExtResource( 6 )
 
+[node name="Label" type="Label" parent="TaskController"]
+margin_left = 307.0
+margin_top = 1134.25
+margin_right = 738.0
+margin_bottom = 1487.25
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "dasdasdasdasdad"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="task_ready" from="." to="TaskController" method="_on_Chemixer_task_ready"]
 [connection signal="blob_poured_in" from="MainVial" to="." method="_on_MainVial_blob_poured_in"]
@@ -176,3 +196,4 @@ script = ExtResource( 6 )
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/SpawnBlobButton" to="." method="_on_SpawnBlobButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/ClearFluidsButton" to="." method="_on_ClearFluidsButton_pressed"]
 [connection signal="item_selected" from="GUI/ControlPanel/HBoxContainer/CompoundSelect" to="." method="_on_CompoundSelect_item_selected"]
+[connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/TaskListButton" to="TaskController" method="_on_TaskListButton_pressed"]

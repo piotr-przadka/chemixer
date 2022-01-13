@@ -12,7 +12,6 @@ func _ready():
 func _on_MainVial_blob_poured_in(blob):
 	if not current_compound:
 		current_compound = blob.compound
-	
 	if not current_compound == blob.compound or not current_step_type == GHelper.STEP_TYPES.POUR_IN:
 		if not current_step_type == null:
 			save_step()
@@ -72,8 +71,34 @@ func _on_Chemixer_task_ready(mixture_contents, mixture_volume):
 
 func save_task(task):
 	var file = File.new()
-	var task_name = 'task1'
-	file.open(task_name + '.json', File.WRITE)
+	var task_name = 'task' + str(task['mixture_stats']['total_volume'])
+	var file_name = task_name + '.json'
+	
+	if OS.get_name() == 'Android':
+		file_name = 'user://tasks/' + file_name
+	else:
+		file_name = 'res://tasks/' + file_name
+	
+	file.open(file_name, File.WRITE)
 	file.store_line(to_json(task))
 	file.close()
 	
+
+
+func _on_TaskListButton_pressed():
+	var files = []
+	var dir = Directory.new()
+	dir.open('user://tasks')
+	dir.list_dir_begin()
+
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			files.append(file)
+
+	dir.list_dir_end()
+
+	print(files)
+	$Label.text = str(files)
