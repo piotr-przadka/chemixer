@@ -34,7 +34,7 @@ func _input(event):
 				rotate(-0.05)
 			elif event.scancode == KEY_RIGHT:
 				rotate(0.05)
-		
+
 
 
 func _on_TouchScreenButton_pressed():

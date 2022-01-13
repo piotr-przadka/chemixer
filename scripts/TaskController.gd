@@ -72,17 +72,11 @@ func _on_Chemixer_task_ready(mixture_contents, mixture_volume):
 func save_task(task):
 	var file = File.new()
 	var task_name = 'task' + str(task['mixture_stats']['total_volume'])
-	var file_name = task_name + '.json'
-	
-	if OS.get_name() == 'Android':
-		file_name = 'user://tasks/' + file_name
-	else:
-		file_name = 'res://tasks/' + file_name
+	var file_name = 'user://tasks/' + task_name + '.json'
 	
 	file.open(file_name, File.WRITE)
 	file.store_line(to_json(task))
 	file.close()
-	
 
 
 func _on_TaskListButton_pressed():

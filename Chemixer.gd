@@ -25,6 +25,7 @@ func _ready():
 	var dir = Directory.new()
 	dir.open("user://")
 	dir.make_dir("tasks")
+	print(OS.get_data_dir())
 
 
 func _unhandled_input(event):
