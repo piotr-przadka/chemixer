@@ -6,6 +6,7 @@ var touching : bool = false
 var dragged_position_delta
 var touch_offset
 
+var input_disabled = false
 
 func _ready():
 	pass
@@ -18,6 +19,9 @@ func _process(delta):
 
 
 func _input(event):
+	if input_disabled:
+		return
+	
 	if event is InputEventScreenTouch and touching:
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
@@ -36,3 +40,7 @@ func _on_TouchScreenButton_pressed():
 func _on_TouchScreenButton_released():
 	touching = false
 	touch_offset = Vector2(0, 0)
+
+
+func _on_Chemixer_disable_input():
+	input_disabled = true

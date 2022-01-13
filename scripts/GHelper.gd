@@ -98,7 +98,7 @@ var compounds = {
 }
 
 enum STEP_TYPES { POUR_IN, POUR_OUT, MIX }
-
+enum STATES { MAIN_MENU, INTERACTIVE, ANIMATION, SANDBOX }
 
 func _ready():
 	pass # Replace with function body.

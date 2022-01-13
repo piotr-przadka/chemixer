@@ -4,38 +4,43 @@ onready var blob_scene = preload("res://scenes/2D/Blob.tscn")
 onready var small_vial_scene = preload("res://scenes/2D/SmallVial.tscn")
 onready var compound_entry_scene = preload("res://scenes/GUI/MaterialEntry.tscn")
 
+onready var main_menu = $MainMenu
+onready var main_vial = $MainVial
+onready var stirring_rod = $StirringRod
+onready var gui = $GUI
+onready var stats_gui = $GUI/CurrentStats
+onready var step_entries_list = $GUI/StepList/VBoxContainer
+
 var current_compound = "water"
 var current_color = GHelper.compounds[current_compound]['color']
 var mixture_volume = 0
 var mixture_contents = {}
 var MAX_SMALL_VIAL_COUNT = 3
 
+var state
+
 signal update_entry(compound, volume, percent)
 signal mixture_color_changed(color)
 signal task_ready(mixture_contents, mixture_volume)
+signal disable_input()
 
 
 func _ready():
-	var new_blob = blob_scene.instance()
-	new_blob.set_compound(current_compound)
-	add_child(new_blob)
-	new_blob = blob_scene.instance()
-	new_blob.set_compound(current_compound)
-	add_child(new_blob)
+	change_state(GHelper.STATES.MAIN_MENU)
 	var dir = Directory.new()
 	dir.open("user://")
 	dir.make_dir("tasks")
 	print(OS.get_data_dir())
 
 
-func _unhandled_input(event):
+#func _unhandled_input(event):
 #	if event is InputEventScreenTouch or event is InputEventMouseButton:
 #		if event.pressed:
 #			var new_blob = blob_scene.instance()
 #			new_blob.set_compound(current_compound)
 #			add_child(new_blob)
 #			new_blob.position = $BlobSpawnPoint.position
-	pass
+#	pass
 
 
 func _on_NewVialButton_pressed():
@@ -64,8 +69,9 @@ func _on_ClearVialsButton_pressed():
 
 
 func _on_ClearFluidsButton_pressed():
-	for blob in get_tree().get_nodes_in_group(current_compound):
-		blob.queue_free()
+#	for blob in get_tree().get_nodes_in_group(current_compound):
+#		blob.queue_free()
+	change_state(GHelper.STATES.MAIN_MENU)
 
 
 func _on_MainVial_blob_poured_in(blob):
@@ -158,5 +164,59 @@ func calculate_avg_color():
 
 
 
+func _on_CreateTaskButton_pressed():
+	change_state(GHelper.STATES.INTERACTIVE)
 
 
+func _on_SandboxButton_pressed():
+	change_state(GHelper.STATES.SANDBOX)
+
+
+func change_state(new_state):
+	if new_state == GHelper.STATES.INTERACTIVE:
+		main_menu.hide()
+		main_vial.show()
+		gui.show()
+		stats_gui.show()
+		stirring_rod.show()
+	elif new_state == GHelper.STATES.SANDBOX:
+		main_menu.hide()
+		main_vial.show()
+		gui.show()
+		stats_gui.show()
+		stirring_rod.show()
+	elif new_state == GHelper.STATES.MAIN_MENU:
+		main_menu.show()
+		main_vial.hide()
+		gui.hide()
+		stats_gui.hide()
+		stirring_rod.hide()
+	elif new_state == GHelper.STATES.ANIMATION:
+		main_menu.hide()
+		main_vial.show()
+		gui.show()
+		stats_gui.hide()
+		stirring_rod.show()
+		emit_signal('disable_input')
+	state = new_state
+
+
+
+
+
+
+
+
+
+
+
+
+
+func _on_ExperimentButton_pressed():
+	change_state(GHelper.STATES.ANIMATION)
+
+
+func _on_TaskController_step_entries_loaded(entries):
+	change_state(GHelper.STATES.INTERACTIVE)
+	for entry in entries:
+		step_entries_list.add_child(entry)

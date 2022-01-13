@@ -4,6 +4,7 @@ var rotation_factor = 4
 var touching : bool = false
 var dragged_position_delta
 var touch_offset
+var input_disabled = false
 
 var type = "main_vial"
 
@@ -24,6 +25,9 @@ func _process(delta):
 
 
 func _input(event):
+	if input_disabled:
+		return
+	
 	if event is InputEventScreenTouch and touching:
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
@@ -75,3 +79,7 @@ func _on_MixTimer_timeout():
 func _on_Chemixer_mixture_color_changed(color):
 	mix_particles.process_material.color = color
 	mix_particles.emitting = true
+
+
+func _on_Chemixer_disable_input():
+	input_disabled = true

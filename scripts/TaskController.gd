@@ -5,6 +5,12 @@ var current_step_type = null
 var current_volume = 0
 var steps = []
 
+var file_to_load = null
+var step_nodes = []
+onready var step_entry_scene = preload("res://scenes/GUI/StepEntry.tscn")
+
+signal step_entries_loaded(entries)
+
 func _ready():
 	pass
 
@@ -96,3 +102,21 @@ func _on_TaskListButton_pressed():
 
 	print(files)
 	$Label.text = str(files)
+
+
+func _on_TaskSelector_selected_task_changed(file_path):
+	file_to_load = file_path
+
+
+func _on_SolveTaskButton_pressed():
+	var file = File.new()
+	file.open(file_to_load, File.READ)
+	var task = parse_json(file.get_as_text())
+	file.close()
+	
+	for step in task['steps']:
+		var step_entry = step_entry_scene.instance()
+		step_entry.init_step(step)
+		step_nodes.append(step_entry)
+	
+	emit_signal('step_entries_loaded', step_nodes)

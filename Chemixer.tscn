@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
@@ -6,7 +6,32 @@
 [ext_resource path="res://assets/images/background.svg" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/default.tres" type="DynamicFont" id=5]
 [ext_resource path="res://scripts/TaskController.gd" type="Script" id=6]
-[ext_resource path="res://scenes/2D/StirringRod.tscn" type="PackedScene" id=7]
+[ext_resource path="res://icon.png" type="Texture" id=7]
+[ext_resource path="res://assets/fonts/large.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scenes/2D/StirringRod.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/fonts/very_large.tres" type="DynamicFont" id=10]
+[ext_resource path="res://assets/fonts/medium_large.tres" type="DynamicFont" id=11]
+[ext_resource path="res://scripts/GUI/SelectTaskButton.gd" type="Script" id=12]
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 200.0
+content_margin_right = 200.0
+content_margin_top = 200.0
+content_margin_bottom = 200.0
+bg_color = Color( 0, 0, 0, 0.905882 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.215686, 0.207843, 0.247059, 1 )
+
+[sub_resource type="Theme" id=4]
+MenuButton/fonts/font = ExtResource( 11 )
+MenuButton/styles/disabled = SubResource( 5 )
+MenuButton/styles/focus = SubResource( 5 )
+MenuButton/styles/hover = SubResource( 5 )
+MenuButton/styles/normal = SubResource( 5 )
+MenuButton/styles/pressed = SubResource( 5 )
+OptionButton/fonts/font = ExtResource( 11 )
+PopupMenu/fonts/font = ExtResource( 11 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 10.0
@@ -15,14 +40,115 @@ content_margin_top = 10.0
 content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 15.0
-content_margin_right = 15.0
-content_margin_top = 15.0
-content_margin_bottom = 15.0
-bg_color = Color( 0.968627, 0.431373, 0.431373, 0.623529 )
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 20.0
+content_margin_bottom = 20.0
+bg_color = Color( 0, 0, 0, 0.623529 )
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="Chemixer" type="Node2D"]
 script = ExtResource( 3 )
+
+[node name="MainMenu" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1080.0
+margin_bottom = 2160.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuBackground" type="PanelContainer" parent="MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuOptions" type="VBoxContainer" parent="MainMenu/MenuBackground"]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 880.0
+margin_bottom = 1960.0
+custom_constants/separation = 50
+
+[node name="Logo" type="TextureRect" parent="MainMenu/MenuBackground/MenuOptions"]
+visible = false
+margin_right = 680.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 200 )
+texture = ExtResource( 7 )
+stretch_mode = 6
+
+[node name="TitleLabel" type="Label" parent="MainMenu/MenuBackground/MenuOptions"]
+margin_right = 680.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 10 )
+text = "Chemixer"
+align = 1
+valign = 1
+
+[node name="Spacer" type="Control" parent="MainMenu/MenuBackground/MenuOptions"]
+margin_top = 174.0
+margin_right = 680.0
+margin_bottom = 274.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="CreateTaskButton" type="Button" parent="MainMenu/MenuBackground/MenuOptions"]
+margin_top = 324.0
+margin_right = 680.0
+margin_bottom = 524.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/font = ExtResource( 8 )
+text = "Create a new task"
+
+[node name="SolveTaskContainer" type="HBoxContainer" parent="MainMenu/MenuBackground/MenuOptions"]
+margin_top = 574.0
+margin_right = 680.0
+margin_bottom = 774.0
+custom_constants/separation = 20
+
+[node name="SolveTaskButton" type="Button" parent="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer"]
+margin_right = 401.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/font = ExtResource( 8 )
+text = "Solve an existing task"
+
+[node name="TaskSelector" type="OptionButton" parent="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer"]
+margin_left = 421.0
+margin_right = 680.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+size_flags_horizontal = 3
+theme = SubResource( 4 )
+text = "hello"
+script = ExtResource( 12 )
+
+[node name="ExperimentButton" type="Button" parent="MainMenu/MenuBackground/MenuOptions"]
+margin_top = 824.0
+margin_right = 680.0
+margin_bottom = 1024.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/font = ExtResource( 8 )
+text = "Watch an experiment"
+
+[node name="SandboxButton" type="Button" parent="MainMenu/MenuBackground/MenuOptions"]
+margin_top = 1074.0
+margin_right = 680.0
+margin_bottom = 1274.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/font = ExtResource( 8 )
+text = "Sandbox mode"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -50,6 +176,9 @@ position = Vector2( 812.992, 218.564 )
 
 [node name="MainVial" parent="." instance=ExtResource( 2 )]
 position = Vector2( 549.213, 1880 )
+
+[node name="StirringRod" parent="." instance=ExtResource( 9 )]
+position = Vector2( 994, 1639.39 )
 
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -147,34 +276,62 @@ rect_min_size = Vector2( 50, 0 )
 text = "show files"
 
 [node name="CurrentStats" type="PanelContainer" parent="GUI"]
-margin_left = 24.0
+margin_left = 10.0
 margin_top = 56.0
-margin_right = 448.0
-margin_bottom = 512.0
+margin_right = 531.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 200 )
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/CurrentStats"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 409.0
-margin_bottom = 441.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 501.0
+margin_bottom = 180.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MaterialsLabel" type="Label" parent="GUI/CurrentStats/VBoxContainer"]
-margin_right = 394.0
-margin_bottom = 42.0
-custom_fonts/font = ExtResource( 5 )
-text = "Currently used materials:"
+margin_right = 481.0
+margin_bottom = 69.0
+custom_fonts/font = ExtResource( 8 )
+text = "Currently used compounds:"
+align = 1
+
+[node name="StepList" type="PanelContainer" parent="GUI"]
+margin_left = 549.213
+margin_top = 56.0
+margin_right = 1070.21
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 200 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/StepList"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 501.0
+margin_bottom = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MaterialsLabel" type="Label" parent="GUI/StepList/VBoxContainer"]
+margin_right = 481.0
+margin_bottom = 69.0
+custom_fonts/font = ExtResource( 8 )
+text = "Step List:"
 align = 1
 
 [node name="TaskController" type="Node" parent="."]
 script = ExtResource( 6 )
 
 [node name="Label" type="Label" parent="TaskController"]
+visible = false
 margin_left = 307.0
 margin_top = 1134.25
 margin_right = 738.0
@@ -187,10 +344,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StirringRod" parent="." instance=ExtResource( 7 )]
-
+[connection signal="disable_input" from="." to="MainVial" method="_on_Chemixer_disable_input"]
+[connection signal="disable_input" from="." to="StirringRod" method="_on_Chemixer_disable_input"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="task_ready" from="." to="TaskController" method="_on_Chemixer_task_ready"]
+[connection signal="pressed" from="MainMenu/MenuBackground/MenuOptions/CreateTaskButton" to="." method="_on_CreateTaskButton_pressed"]
+[connection signal="pressed" from="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/SolveTaskButton" to="TaskController" method="_on_SolveTaskButton_pressed"]
+[connection signal="item_selected" from="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" to="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" method="_on_TaskSelector_item_selected"]
+[connection signal="selected_task_changed" from="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" to="TaskController" method="_on_TaskSelector_selected_task_changed"]
+[connection signal="pressed" from="MainMenu/MenuBackground/MenuOptions/ExperimentButton" to="." method="_on_ExperimentButton_pressed"]
+[connection signal="pressed" from="MainMenu/MenuBackground/MenuOptions/SandboxButton" to="." method="_on_SandboxButton_pressed"]
 [connection signal="blob_poured_in" from="MainVial" to="." method="_on_MainVial_blob_poured_in"]
 [connection signal="blob_poured_in" from="MainVial" to="TaskController" method="_on_MainVial_blob_poured_in"]
 [connection signal="blob_poured_out" from="MainVial" to="." method="_on_MainVial_blob_poured_out"]
@@ -203,3 +366,4 @@ __meta__ = {
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/ClearFluidsButton" to="." method="_on_ClearFluidsButton_pressed"]
 [connection signal="item_selected" from="GUI/ControlPanel/HBoxContainer/CompoundSelect" to="." method="_on_CompoundSelect_item_selected"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/TaskListButton" to="TaskController" method="_on_TaskListButton_pressed"]
+[connection signal="step_entries_loaded" from="TaskController" to="." method="_on_TaskController_step_entries_loaded"]
