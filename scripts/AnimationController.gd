@@ -37,10 +37,6 @@ func _on_TaskController_task_loaded(steps):
 		elif step['step_type'] == GHelper.STEP_TYPES.MIX:
 			animate_mix()
 		yield(self, "step_animation_finished")
-		print("animation just finished for step:")
-		print(step)
-#		rotate_twin.stop_all()
-#		move_twin.stop_all()
 
 
 func animate_pour_in(compound, volume):
@@ -57,6 +53,7 @@ func animate_pour_in(compound, volume):
 		
 		for _blob in range(blobs):
 			emit_signal("spawn_blob", compound)
+			yield(get_tree().create_timer(0.1), "timeout")
 		
 		rest_timer.start(1)
 		yield(rest_timer, "timeout")
@@ -83,19 +80,18 @@ func animate_pour_in(compound, volume):
 func animate_pour_out(volume):
 	var pour_out_tween = Tween.new()
 	add_child(pour_out_tween)
-	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 110, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 107, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	pour_out_tween.start()
 	yield(pour_out_tween, "tween_completed")
-#	rotate_twin.stop_all()
 	
-#	print(1.5 * volume / 100.0)
-	rest_timer.start(3)
+	rest_timer.start(1.5 * volume / 100.0)
 	yield(rest_timer, "timeout")
 	
 	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 0, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	pour_out_tween.start()
 	yield(pour_out_tween, "tween_completed")
 	emit_signal("step_animation_finished")
+	pour_out_tween.queue_free()
 
 
 func animate_mix():
@@ -121,22 +117,8 @@ func animate_mix():
 	rotate_twin.interpolate_property(stirring_rod, "rotation_degrees", stirring_rod.rotation_degrees, 0, 3, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	rotate_twin.start()
 	yield(move_twin, "tween_completed")
-	
 
 	emit_signal("step_animation_finished")
-#		$Tween.start()
-#		$Tween.interpolate_property(main_vial, "position", $MainVialRestPoint.position, $MainVialPourPoint.position, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
-#		yield($Tween, "tween_completed")
-#		$Tween.interpolate_property(main_vial, "position", $MainVialPourPoint.position, $MainVialRestPoint.position, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
-#		yield($Tween, "tween_completed")
-#		print(main_vial.rotation_degrees)
-#		print(main_vial.rotation)
-#		print(main_vial.rotation_factor)
-#		$Tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, main_vial.rotation_degrees + 120, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
-#		yield($Tween, "tween_completed")
-#		print(main_vial.rotation_degrees)
-#		print(main_vial.rotation)
-#		print(main_vial.rotation_factor)
 
 
 func _on_Chemixer_animation_vial_spawned(vial):

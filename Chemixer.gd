@@ -124,14 +124,14 @@ func _on_SpawnBlobButton_pressed():
 	var new_blob = blob_scene.instance()
 	new_blob.set_compound(current_compound)
 	add_child(new_blob)
-	new_blob.position = $BlobSpawnPoint.position
+	new_blob.position = Vector2($BlobSpawnPoint.position.x + randi() % 100, $BlobSpawnPoint.position.y + randi() % 100)
 
 
 func spawn_blob(compound):
 	var new_blob = blob_scene.instance()
 	new_blob.set_compound(compound)
 	add_child(new_blob)
-	new_blob.position = $BlobSpawnPoint.position
+	new_blob.position = Vector2($BlobSpawnPoint.position.x + randi() % 10, $BlobSpawnPoint.position.y + randi() % 10)
 
 
 func get_small_vial_count():
