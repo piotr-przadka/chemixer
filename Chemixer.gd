@@ -12,6 +12,7 @@ onready var stats_gui = $GUI/CurrentStats
 onready var step_entries_list = $GUI/StepList/VBoxContainer
 onready var step_list_container = $GUI/StepList
 onready var control_panel = $GUI/ControlPanel
+onready var tamp = $TAMP
 
 var current_compound = "water"
 var current_color = GHelper.compounds[current_compound]['color']
@@ -197,6 +198,7 @@ func change_state(new_state):
 		stats_gui.show()
 		stirring_rod.show()
 		step_list_container.hide()
+		tamp.show()
 		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.SANDBOX:
 		print("Changing state to SANDBOX")
@@ -206,6 +208,7 @@ func change_state(new_state):
 		stats_gui.show()
 		stirring_rod.show()
 		step_list_container.hide()
+		tamp.show()
 		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.MAIN_MENU:
 		print("Changing state to MAIN_MENU")
@@ -214,6 +217,7 @@ func change_state(new_state):
 		gui.hide()
 		stats_gui.hide()
 		stirring_rod.hide()
+		tamp.hide()
 		emit_signal('toggle_input', true)
 	elif new_state == GHelper.STATES.ANIMATION:
 		print("Changing state to ANIMATION")
@@ -224,6 +228,7 @@ func change_state(new_state):
 		stats_gui.hide()
 		stirring_rod.show()
 		step_list_container.show()
+		tamp.show()
 		spawn_small_vial(true)
 		emit_signal('toggle_input', true)
 	state = new_state

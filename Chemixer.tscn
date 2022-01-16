@@ -181,7 +181,7 @@ __meta__ = {
 }
 
 [node name="SmallVialSpawnPoint" type="Position2D" parent="."]
-position = Vector2( 880, 974 )
+position = Vector2( 880, 1048 )
 
 [node name="BlobSpawnPoint" type="Position2D" parent="."]
 position = Vector2( 880, 724 )
@@ -461,7 +461,7 @@ script = ExtResource( 13 )
 position = Vector2( 549.213, 1817.26 )
 
 [node name="SmallVialSpawnPoint" type="Position2D" parent="AnimationController"]
-position = Vector2( 880, 974 )
+position = Vector2( 880, 1048 )
 
 [node name="StirringRodRestPoint" type="Position2D" parent="AnimationController"]
 position = Vector2( 110, 1639.39 )
@@ -478,6 +478,45 @@ position = Vector2( 660.793, 1639.39 )
 [node name="RestTimer" type="Timer" parent="AnimationController"]
 wait_time = 0.5
 one_shot = true
+
+[node name="TAMP" type="Control" parent="."]
+margin_left = 641.0
+margin_top = 650.773
+margin_right = 681.0
+margin_bottom = 690.773
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="TAMP"]
+margin_left = 200.346
+margin_top = -116.109
+margin_right = 279.346
+margin_bottom = 26.8906
+color = Color( 0.109804, 0.101961, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="TAMP"]
+margin_left = 207.0
+margin_top = 27.0
+margin_right = 271.0
+margin_bottom = 61.0
+color = Color( 0.109804, 0.101961, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="TAMP"]
+margin_left = 191.0
+margin_top = -171.0
+margin_right = 439.0
+margin_bottom = -83.0
+color = Color( 0.109804, 0.101961, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="animation_vial_spawned" from="." to="AnimationController" method="_on_Chemixer_animation_vial_spawned"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
