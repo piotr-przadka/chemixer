@@ -11,6 +11,7 @@ onready var gui = $GUI
 onready var stats_gui = $GUI/CurrentStats
 onready var step_entries_list = $GUI/StepList/VBoxContainer
 onready var step_list_container = $GUI/StepList
+onready var control_panel = $GUI/ControlPanel
 
 var current_compound = "water"
 var current_color = GHelper.compounds[current_compound]['color']
@@ -98,7 +99,7 @@ func _on_MainVial_blob_poured_in(blob):
 
 func _on_MainVial_blob_poured_out(blob):
 	for compound in mixture_contents.keys():
-		mixture_contents[compound] -= stepify(float(mixture_contents[compound]) / mixture_volume, 0.01) * blob.volume
+		mixture_contents[compound] -= stepify(float(mixture_contents[compound]) / mixture_volume, 0.001) * blob.volume
 		if int(mixture_contents[compound]) <= 0:
 			mixture_contents.erase(compound)
 			for entry in get_tree().get_nodes_in_group("entries"):
@@ -112,7 +113,7 @@ func _on_MainVial_blob_poured_out(blob):
 
 func recalculate_mixture_contents():
 	for compound in mixture_contents.keys():
-		var percent = stepify(float(mixture_contents[compound]) / mixture_volume * 100, 0.01)
+		var percent = stepify(float(mixture_contents[compound]) / mixture_volume * 100, 0.001)
 		emit_signal('update_entry', compound, mixture_contents[compound], percent)
 
 
@@ -124,7 +125,7 @@ func _on_SpawnBlobButton_pressed():
 	var new_blob = blob_scene.instance()
 	new_blob.set_compound(current_compound)
 	add_child(new_blob)
-	new_blob.position = Vector2($BlobSpawnPoint.position.x + randi() % 100, $BlobSpawnPoint.position.y + randi() % 100)
+	new_blob.position = Vector2($BlobSpawnPoint.position.x + randi() % 10, $BlobSpawnPoint.position.y + randi() % 10)
 
 
 func spawn_blob(compound):
@@ -216,6 +217,7 @@ func change_state(new_state):
 		main_menu.hide()
 		main_vial.show()
 		gui.show()
+		control_panel.hide()
 		stats_gui.hide()
 		stirring_rod.show()
 		step_list_container.show()

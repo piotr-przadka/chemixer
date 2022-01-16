@@ -7,10 +7,18 @@ var steps = []
 
 var file_to_load = null
 var step_nodes = []
+
+var task_to_solve = null
+
 onready var step_entry_scene = preload("res://scenes/GUI/StepEntry.tscn")
+onready var answer_entry_scene = preload("res://scenes/GUI/TaskAnswerEntry.tscn")
+onready var answer_entry_list = $AnswerPanel/VBoxContainer
+onready var task_label = $AnswerPanel/VBoxContainer/TaskLabel
+onready var answer_panel = $AnswerPanel
 
 signal task_loaded(steps)
 signal step_entries_loaded(entries)
+signal attempt_answer()
 
 func _ready():
 	pass
@@ -39,7 +47,7 @@ func _on_MainVial_blob_poured_out(blob):
 
 
 func _on_MainVial_mix():
-	if current_step_type == GHelper.STEP_TYPES.MIX:
+	if current_step_type == GHelper.STEP_TYPES.MIX or current_volume == 0:
 		return
 	else:
 		save_step()
@@ -64,7 +72,7 @@ func _on_Chemixer_task_ready(mixture_contents, mixture_volume):
 	save_step()
 	var content_percentage = {}
 	for compound in mixture_contents.keys():
-		content_percentage[compound] = stepify(float(mixture_contents[compound]) / mixture_volume * 100, 0.01)
+		content_percentage[compound] = stepify(float(mixture_contents[compound]) / mixture_volume * 100, 0.001)
 	
 	var task = {
 		'steps': steps,
@@ -116,9 +124,29 @@ func _on_SolveTaskButton_pressed():
 	file.close()
 	emit_signal('task_loaded', task['steps'])
 	
+	task_to_solve = task
+	
 	for step in task['steps']:
 		var step_entry = step_entry_scene.instance()
 		step_entry.init_step(step)
 		step_nodes.append(step_entry)
 	
 	emit_signal('step_entries_loaded', step_nodes)
+
+
+func _on_AnimationController_animation_completed():
+	prepare_answer_entries()
+	answer_panel.show()
+
+
+func prepare_answer_entries():
+	var percentages = task_to_solve['mixture_stats']['content_percentage']
+	for compound in percentages.keys():
+		var answer_entry = answer_entry_scene.instance()
+		answer_entry.init_answer(compound, percentages[compound])
+		connect('attempt_answer', answer_entry, 'check_answer')
+		answer_entry_list.add_child_below_node(task_label, answer_entry)
+
+
+func _on_CheckButton_pressed():
+	emit_signal("attempt_answer")

@@ -20,6 +20,7 @@ const MAX_POUR_VOLUME = 250
 
 signal spawn_blob(compound)
 signal step_animation_finished()
+signal animation_completed()
 
 func _ready():
 	pass
@@ -37,6 +38,7 @@ func _on_TaskController_task_loaded(steps):
 		elif step['step_type'] == GHelper.STEP_TYPES.MIX:
 			animate_mix()
 		yield(self, "step_animation_finished")
+	emit_signal('animation_completed')
 
 
 func animate_pour_in(compound, volume):

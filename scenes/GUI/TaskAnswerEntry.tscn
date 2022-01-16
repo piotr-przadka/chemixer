@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/fonts/large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/GUI/TaskAnswerEntry.gd" type="Script" id=2]
+
+[node name="TaskAnswerEntry" type="HBoxContainer"]
+margin_top = 285.0
+margin_right = 470.0
+margin_bottom = 337.0
+alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CompoundLabel" type="Label" parent="."]
+margin_top = 5.0
+margin_right = 184.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Water"
+align = 2
+
+[node name="Spacer" type="Control" parent="."]
+margin_left = 188.0
+margin_right = 208.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 20, 0 )
+size_flags_stretch_ratio = 0.2
+
+[node name="CompoundInput" type="LineEdit" parent="."]
+margin_left = 212.0
+margin_right = 366.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 1 )
+text = "120.12"
+max_length = 6
+
+[node name="Spacer2" type="Control" parent="."]
+margin_left = 370.0
+margin_right = 470.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
