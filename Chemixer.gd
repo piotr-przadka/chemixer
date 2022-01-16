@@ -10,6 +10,7 @@ onready var stirring_rod = $StirringRod
 onready var gui = $GUI
 onready var stats_gui = $GUI/CurrentStats
 onready var step_entries_list = $GUI/StepList/VBoxContainer
+onready var step_list_container = $GUI/StepList
 
 var current_compound = "water"
 var current_color = GHelper.compounds[current_compound]['color']
@@ -23,6 +24,7 @@ signal update_entry(compound, volume, percent)
 signal mixture_color_changed(color)
 signal task_ready(mixture_contents, mixture_volume)
 signal disable_input()
+signal animation_vial_spawned(vial)
 
 
 func _ready():
@@ -31,6 +33,7 @@ func _ready():
 	dir.open("user://")
 	dir.make_dir("tasks")
 	print(OS.get_data_dir())
+#	print(range(0, 310))
 
 
 #func _unhandled_input(event):
@@ -44,11 +47,17 @@ func _ready():
 
 
 func _on_NewVialButton_pressed():
+	spawn_small_vial()
+
+
+func spawn_small_vial(for_animation=false):
 	if get_small_vial_count() <= MAX_SMALL_VIAL_COUNT:
 		var new_small_vial = small_vial_scene.instance()
 		new_small_vial.init(get_small_vial_count())
 		add_child(new_small_vial)
 		new_small_vial.position = $SmallVialSpawnPoint.position
+		if for_animation:
+			emit_signal('animation_vial_spawned', new_small_vial)
 
 
 func _on_ClearVialsButton_pressed():
@@ -88,7 +97,6 @@ func _on_MainVial_blob_poured_in(blob):
 		
 
 func _on_MainVial_blob_poured_out(blob):
-	
 	for compound in mixture_contents.keys():
 		mixture_contents[compound] -= stepify(float(mixture_contents[compound]) / mixture_volume, 0.01) * blob.volume
 		if int(mixture_contents[compound]) <= 0:
@@ -115,6 +123,13 @@ func _on_CompoundSelect_item_selected(index):
 func _on_SpawnBlobButton_pressed():
 	var new_blob = blob_scene.instance()
 	new_blob.set_compound(current_compound)
+	add_child(new_blob)
+	new_blob.position = $BlobSpawnPoint.position
+
+
+func spawn_blob(compound):
+	var new_blob = blob_scene.instance()
+	new_blob.set_compound(compound)
 	add_child(new_blob)
 	new_blob.position = $BlobSpawnPoint.position
 
@@ -174,29 +189,37 @@ func _on_SandboxButton_pressed():
 
 func change_state(new_state):
 	if new_state == GHelper.STATES.INTERACTIVE:
+		print("Changing state to INTERACTIVE")
 		main_menu.hide()
 		main_vial.show()
 		gui.show()
 		stats_gui.show()
 		stirring_rod.show()
+		step_list_container.hide()		
 	elif new_state == GHelper.STATES.SANDBOX:
+		print("Changing state to SANDBOX")
 		main_menu.hide()
 		main_vial.show()
 		gui.show()
 		stats_gui.show()
 		stirring_rod.show()
+		step_list_container.hide()
 	elif new_state == GHelper.STATES.MAIN_MENU:
+		print("Changing state to MAIN_MENU")
 		main_menu.show()
 		main_vial.hide()
 		gui.hide()
 		stats_gui.hide()
 		stirring_rod.hide()
 	elif new_state == GHelper.STATES.ANIMATION:
+		print("Changing state to ANIMATION")
 		main_menu.hide()
 		main_vial.show()
 		gui.show()
 		stats_gui.hide()
 		stirring_rod.show()
+		step_list_container.show()
+		spawn_small_vial(true)
 		emit_signal('disable_input')
 	state = new_state
 
@@ -217,6 +240,10 @@ func _on_ExperimentButton_pressed():
 
 
 func _on_TaskController_step_entries_loaded(entries):
-	change_state(GHelper.STATES.INTERACTIVE)
+	change_state(GHelper.STATES.ANIMATION)
 	for entry in entries:
 		step_entries_list.add_child(entry)
+
+
+func _on_AnimationController_spawn_blob(compound):
+	spawn_blob(compound)

@@ -9,6 +9,7 @@ var file_to_load = null
 var step_nodes = []
 onready var step_entry_scene = preload("res://scenes/GUI/StepEntry.tscn")
 
+signal task_loaded(steps)
 signal step_entries_loaded(entries)
 
 func _ready():
@@ -113,6 +114,7 @@ func _on_SolveTaskButton_pressed():
 	file.open(file_to_load, File.READ)
 	var task = parse_json(file.get_as_text())
 	file.close()
+	emit_signal('task_loaded', task['steps'])
 	
 	for step in task['steps']:
 		var step_entry = step_entry_scene.instance()

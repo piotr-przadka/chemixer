@@ -16,7 +16,7 @@ signal blob_poured_out(blob)
 signal mix()
 
 func _ready():
-	pass
+	mix_particles.emitting = true
 
 func _process(delta):
 	if touching:
@@ -53,12 +53,12 @@ func _on_TouchScreenButton_released():
 func _on_Area2D_body_entered(body):
 	if body.type == 'blob':
 		print('entered')	
-		mix_timer.start(10)
+		mix_timer.start(15)
 		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
 	elif body.type == 'stirring_rod':
 		print('stirring_rod detected')
-		mix_timer.start(3)
+		mix_timer.start(7)
 
 
 func _on_Area2D_body_exited(body):

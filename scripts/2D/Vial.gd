@@ -10,6 +10,8 @@ var type = "small_vial"
 
 func _ready():
 	add_to_group("vials")
+	$MixParticles.emitting = true
+	
 
 
 func init(layer_index):

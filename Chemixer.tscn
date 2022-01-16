@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/fonts/very_large.tres" type="DynamicFont" id=10]
 [ext_resource path="res://assets/fonts/medium_large.tres" type="DynamicFont" id=11]
 [ext_resource path="res://scripts/GUI/SelectTaskButton.gd" type="Script" id=12]
+[ext_resource path="res://scripts/AnimationController.gd" type="Script" id=13]
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 200.0
@@ -169,16 +170,16 @@ __meta__ = {
 }
 
 [node name="SmallVialSpawnPoint" type="Position2D" parent="."]
-position = Vector2( 800, 416 )
+position = Vector2( 880, 974 )
 
 [node name="BlobSpawnPoint" type="Position2D" parent="."]
-position = Vector2( 812.992, 218.564 )
+position = Vector2( 880, 724 )
 
 [node name="MainVial" parent="." instance=ExtResource( 2 )]
-position = Vector2( 549.213, 1880 )
+position = Vector2( 549.213, 1817.26 )
 
 [node name="StirringRod" parent="." instance=ExtResource( 9 )]
-position = Vector2( 994, 1639.39 )
+position = Vector2( 110, 1639.39 )
 
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -315,13 +316,13 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/StepList"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 501.0
+margin_right = 500.997
 margin_bottom = 180.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MaterialsLabel" type="Label" parent="GUI/StepList/VBoxContainer"]
-margin_right = 481.0
+margin_right = 480.0
 margin_bottom = 69.0
 custom_fonts/font = ExtResource( 8 )
 text = "Step List:"
@@ -344,6 +345,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimationController" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="MoveTwin" type="Tween" parent="AnimationController"]
+
+[node name="RotateTwin" type="Tween" parent="AnimationController"]
+
+[node name="MainVialRestPoint" type="Position2D" parent="AnimationController"]
+position = Vector2( 549.213, 1817.26 )
+
+[node name="SmallVialSpawnPoint" type="Position2D" parent="AnimationController"]
+position = Vector2( 880, 974 )
+
+[node name="StirringRodRestPoint" type="Position2D" parent="AnimationController"]
+position = Vector2( 110, 1639.39 )
+
+[node name="StirringRodBeforeMix" type="Position2D" parent="AnimationController"]
+position = Vector2( 641, 1274.51 )
+
+[node name="StirringRodMixPoint1" type="Position2D" parent="AnimationController"]
+position = Vector2( 492, 1639.39 )
+
+[node name="StirringRodMixPoint2" type="Position2D" parent="AnimationController"]
+position = Vector2( 660.793, 1639.39 )
+
+[node name="RestTimer" type="Timer" parent="AnimationController"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="animation_vial_spawned" from="." to="AnimationController" method="_on_Chemixer_animation_vial_spawned"]
 [connection signal="disable_input" from="." to="MainVial" method="_on_Chemixer_disable_input"]
 [connection signal="disable_input" from="." to="StirringRod" method="_on_Chemixer_disable_input"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
@@ -367,3 +398,5 @@ __meta__ = {
 [connection signal="item_selected" from="GUI/ControlPanel/HBoxContainer/CompoundSelect" to="." method="_on_CompoundSelect_item_selected"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/TaskListButton" to="TaskController" method="_on_TaskListButton_pressed"]
 [connection signal="step_entries_loaded" from="TaskController" to="." method="_on_TaskController_step_entries_loaded"]
+[connection signal="task_loaded" from="TaskController" to="AnimationController" method="_on_TaskController_task_loaded"]
+[connection signal="spawn_blob" from="AnimationController" to="." method="_on_AnimationController_spawn_blob"]
