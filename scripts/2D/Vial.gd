@@ -5,13 +5,13 @@ var touching : bool = false
 var dragged_position_delta
 var touch_offset
 var collision_layer_index
+var input_disabled = false
 
 var type = "small_vial"
 
 func _ready():
 	add_to_group("vials")
 	$MixParticles.emitting = true
-	
 
 
 func init(layer_index):
@@ -23,12 +23,15 @@ func init(layer_index):
 
 
 func _process(delta):
-	if touching:
+	if touching and not input_disabled:
 		var gyro_rotation = Input.get_gyroscope().z
 		rotate(-gyro_rotation * delta * rotation_factor)
 
 
 func _input(event):
+	if input_disabled:
+		return
+	
 	if event is InputEventScreenTouch and touching:
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
@@ -58,3 +61,7 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	if body.type == 'blob':
 		body.reset_collision_plane()
+
+
+func request_disable_input(disabled):
+	input_disabled = disabled

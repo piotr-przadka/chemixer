@@ -19,7 +19,7 @@ func _ready():
 	mix_particles.emitting = true
 
 func _process(delta):
-	if touching:
+	if touching and not input_disabled:
 		var gyro_rotation = Input.get_gyroscope().z
 		rotate(-gyro_rotation * delta * rotation_factor)
 
@@ -53,12 +53,12 @@ func _on_TouchScreenButton_released():
 func _on_Area2D_body_entered(body):
 	if body.type == 'blob':
 		print('entered')	
-		mix_timer.start(15)
+		mix_timer.start(7)
 		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
 	elif body.type == 'stirring_rod':
 		print('stirring_rod detected')
-		mix_timer.start(7)
+		mix_timer.start(4)
 
 
 func _on_Area2D_body_exited(body):
@@ -81,5 +81,5 @@ func _on_Chemixer_mixture_color_changed(color):
 	mix_particles.emitting = true
 
 
-func _on_Chemixer_disable_input():
-	input_disabled = true
+func _on_Chemixer_toggle_input(enabled):
+	input_disabled = enabled

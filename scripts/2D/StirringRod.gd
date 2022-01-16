@@ -42,5 +42,5 @@ func _on_TouchScreenButton_released():
 	touch_offset = Vector2(0, 0)
 
 
-func _on_Chemixer_disable_input():
-	input_disabled = true
+func _on_Chemixer_toggle_input(enabled):
+	input_disabled = enabled

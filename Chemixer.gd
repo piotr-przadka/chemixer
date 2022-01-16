@@ -24,9 +24,8 @@ var state
 signal update_entry(compound, volume, percent)
 signal mixture_color_changed(color)
 signal task_ready(mixture_contents, mixture_volume)
-signal disable_input()
+signal toggle_input(disabled)
 signal animation_vial_spawned(vial)
-
 
 func _ready():
 	change_state(GHelper.STATES.MAIN_MENU)
@@ -57,6 +56,7 @@ func spawn_small_vial(for_animation=false):
 		new_small_vial.init(get_small_vial_count())
 		add_child(new_small_vial)
 		new_small_vial.position = $SmallVialSpawnPoint.position
+		connect('toggle_input', new_small_vial, 'request_disable_input')
 		if for_animation:
 			emit_signal('animation_vial_spawned', new_small_vial)
 
@@ -196,7 +196,8 @@ func change_state(new_state):
 		gui.show()
 		stats_gui.show()
 		stirring_rod.show()
-		step_list_container.hide()		
+		step_list_container.hide()
+		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.SANDBOX:
 		print("Changing state to SANDBOX")
 		main_menu.hide()
@@ -205,6 +206,7 @@ func change_state(new_state):
 		stats_gui.show()
 		stirring_rod.show()
 		step_list_container.hide()
+		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.MAIN_MENU:
 		print("Changing state to MAIN_MENU")
 		main_menu.show()
@@ -212,6 +214,7 @@ func change_state(new_state):
 		gui.hide()
 		stats_gui.hide()
 		stirring_rod.hide()
+		emit_signal('toggle_input', true)
 	elif new_state == GHelper.STATES.ANIMATION:
 		print("Changing state to ANIMATION")
 		main_menu.hide()
@@ -222,7 +225,7 @@ func change_state(new_state):
 		stirring_rod.show()
 		step_list_container.show()
 		spawn_small_vial(true)
-		emit_signal('disable_input')
+		emit_signal('toggle_input', true)
 	state = new_state
 
 
