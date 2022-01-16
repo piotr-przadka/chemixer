@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/fonts/medium_large.tres" type="DynamicFont" id=11]
 [ext_resource path="res://scripts/GUI/SelectTaskButton.gd" type="Script" id=12]
 [ext_resource path="res://scripts/AnimationController.gd" type="Script" id=13]
+[ext_resource path="res://scripts/GUI/SaveDialog.gd" type="Script" id=14]
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 200.0
@@ -336,6 +337,101 @@ custom_fonts/font = ExtResource( 8 )
 text = "Step List:"
 align = 1
 
+[node name="SaveDialog" type="PanelContainer" parent="GUI"]
+visible = false
+margin_left = 248.0
+margin_top = 592.0
+margin_right = 848.0
+margin_bottom = 888.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/SaveDialog"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 580.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="SaveTaskLabel" type="Label" parent="GUI/SaveDialog/VBoxContainer"]
+margin_right = 560.0
+margin_bottom = 69.0
+custom_fonts/font = ExtResource( 8 )
+text = "Save Task"
+align = 1
+
+[node name="SaveHBox" type="HBoxContainer" parent="GUI/SaveDialog/VBoxContainer"]
+margin_top = 89.0
+margin_right = 560.0
+margin_bottom = 154.0
+custom_constants/separation = 30
+
+[node name="TaskNameLabel" type="Label" parent="GUI/SaveDialog/VBoxContainer/SaveHBox"]
+margin_top = 5.0
+margin_right = 154.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 11 )
+text = "Task name: "
+align = 1
+
+[node name="TaskNameInput" type="LineEdit" parent="GUI/SaveDialog/VBoxContainer/SaveHBox"]
+margin_left = 184.0
+margin_right = 560.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 11 )
+
+[node name="SaveControl" type="HBoxContainer" parent="GUI/SaveDialog/VBoxContainer"]
+margin_top = 174.0
+margin_right = 560.0
+margin_bottom = 244.0
+custom_constants/separation = 30
+
+[node name="SaveButton" type="Button" parent="GUI/SaveDialog/VBoxContainer/SaveControl"]
+margin_right = 166.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color_disabled = Color( 0.152941, 1, 0, 1 )
+custom_colors/font_color_focus = Color( 0.152941, 1, 0, 1 )
+custom_colors/font_color = Color( 0.152941, 1, 0, 1 )
+custom_colors/font_color_hover = Color( 0.152941, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.152941, 1, 0, 1 )
+custom_fonts/font = ExtResource( 11 )
+text = "Save"
+
+[node name="ContinueButton" type="Button" parent="GUI/SaveDialog/VBoxContainer/SaveControl"]
+margin_left = 196.0
+margin_right = 363.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 11 )
+text = "Continue"
+
+[node name="DiscardButton" type="Button" parent="GUI/SaveDialog/VBoxContainer/SaveControl"]
+margin_left = 393.0
+margin_right = 560.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color_disabled = Color( 1, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 1, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 11 )
+text = "Discard"
+
 [node name="TaskController" type="Node" parent="."]
 script = ExtResource( 6 )
 
@@ -513,6 +609,7 @@ __meta__ = {
 
 [connection signal="animation_vial_spawned" from="." to="AnimationController" method="_on_Chemixer_animation_vial_spawned"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
+[connection signal="reload_tasks" from="." to="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" method="_on_Chemixer_reload_tasks"]
 [connection signal="task_ready" from="." to="TaskController" method="_on_Chemixer_task_ready"]
 [connection signal="toggle_input" from="." to="MainVial" method="_on_Chemixer_toggle_input"]
 [connection signal="toggle_input" from="." to="StirringRod" method="_on_Chemixer_toggle_input"]
@@ -534,6 +631,12 @@ __meta__ = {
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="item_selected" from="GUI/ControlPanel/HBoxContainer/CompoundSelect" to="." method="_on_CompoundSelect_item_selected"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/TaskListButton" to="TaskController" method="_on_TaskListButton_pressed"]
+[connection signal="request_main_menu" from="GUI/SaveDialog" to="." method="_on_SaveDialog_request_main_menu"]
+[connection signal="save_task" from="GUI/SaveDialog" to="." method="_on_SaveDialog_save_task"]
+[connection signal="text_changed" from="GUI/SaveDialog/VBoxContainer/SaveHBox/TaskNameInput" to="GUI/SaveDialog" method="_on_TaskNameInput_text_changed"]
+[connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/SaveButton" to="GUI/SaveDialog" method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/ContinueButton" to="GUI/SaveDialog" method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/DiscardButton" to="GUI/SaveDialog" method="_on_DiscardButton_pressed"]
 [connection signal="answer_declined" from="TaskController" to="." method="_on_TaskController_answer_declined"]
 [connection signal="replay" from="TaskController" to="." method="_on_TaskController_replay"]
 [connection signal="step_entries_loaded" from="TaskController" to="." method="_on_TaskController_step_entries_loaded"]

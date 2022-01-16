@@ -26,7 +26,7 @@ var compounds = {
 	"water_red": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Red H2O",
 		"color": Color("#d4393c"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -34,7 +34,7 @@ var compounds = {
 	"water_green": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Green H2O",
 		"color": Color("#39d449"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -42,7 +42,7 @@ var compounds = {
 	"water_yellow": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Yellow H2O",
 		"color": Color("#dbdb27"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -50,7 +50,7 @@ var compounds = {
 	"water_purple": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Purple H2O",
 		"color": Color("#a827db"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -58,7 +58,7 @@ var compounds = {
 	"water_orange": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Orange H2O",
 		"color": Color("#db9027"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -66,7 +66,7 @@ var compounds = {
 	"water_pink": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Pink H2O",
 		"color": Color("#db27cc"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -74,7 +74,7 @@ var compounds = {
 	"water_black": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Black H2O",
 		"color": Color("#121111"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -82,7 +82,7 @@ var compounds = {
 	"water_brown": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "Brown H2O",
 		"color": Color("#6b4c28"),
 		"size_factor": 1
 		# maybe add some special interactions or sth
@@ -90,7 +90,7 @@ var compounds = {
 	"water_white": {
 		"index": 0,
 		"name": "water",
-		"formula": "H2O",
+		"formula": "White H2O",
 		"color": Color("#f7f6f5"),
 		"size_factor": 1
 		# maybe add some special interactions or sth

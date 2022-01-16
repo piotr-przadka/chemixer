@@ -13,6 +13,7 @@ onready var step_entries_list = $GUI/StepList/VBoxContainer
 onready var step_list_container = $GUI/StepList
 onready var control_panel = $GUI/ControlPanel
 onready var tamp = $TAMP
+onready var save_dialog = $GUI/SaveDialog
 
 var current_compound = "water"
 var current_color = GHelper.compounds[current_compound]['color']
@@ -24,9 +25,10 @@ var state
 
 signal update_entry(compound, volume, percent)
 signal mixture_color_changed(color)
-signal task_ready(mixture_contents, mixture_volume)
+signal task_ready(mixture_contents, mixture_volume, task_file_name)
 signal toggle_input(disabled)
 signal animation_vial_spawned(vial)
+signal reload_tasks()
 
 func _ready():
 	change_state(GHelper.STATES.MAIN_MENU)
@@ -267,4 +269,13 @@ func _on_MainMenuButton_pressed():
 
 
 func _on_SaveTaskButton_pressed():
-	emit_signal("task_ready", mixture_contents, mixture_volume)
+	save_dialog.show()
+
+
+func _on_SaveDialog_request_main_menu():
+	change_state(GHelper.STATES.MAIN_MENU)
+
+
+func _on_SaveDialog_save_task(task_file_name):
+	emit_signal("task_ready", mixture_contents, mixture_volume, task_file_name)
+	emit_signal("reload_tasks")

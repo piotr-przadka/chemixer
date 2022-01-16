@@ -13,7 +13,7 @@ func _ready():
 
 
 func _process(delta):
-	if touching:
+	if touching and not input_disabled:
 		var gyro_rotation = Input.get_gyroscope().z
 		rotate(-gyro_rotation * delta * rotation_factor)
 

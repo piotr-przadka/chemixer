@@ -70,7 +70,7 @@ func save_step():
 
 
 
-func _on_Chemixer_task_ready(mixture_contents, mixture_volume):
+func _on_Chemixer_task_ready(mixture_contents, mixture_volume, task_file_name):
 	save_step()
 	var content_percentage = {}
 	for compound in mixture_contents.keys():
@@ -83,13 +83,13 @@ func _on_Chemixer_task_ready(mixture_contents, mixture_volume):
 			'total_volume': mixture_volume
 		}
 	}
-	save_task(task)
+	save_task(task, task_file_name)
 
 
-func save_task(task):
+func save_task(task, task_file_name):
 	var file = File.new()
-	var task_name = 'task' + str(task['mixture_stats']['total_volume'])
-	var file_name = 'user://tasks/' + task_name + '.json'
+#	var task_name = 'task' + str(task['mixture_stats']['total_volume'])
+	var file_name = 'user://tasks/' + task_file_name + '.json'
 	
 	file.open(file_name, File.WRITE)
 	file.store_line(to_json(task))
