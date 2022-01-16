@@ -22,6 +22,10 @@ func _process(delta):
 	if touching and not input_disabled:
 		var gyro_rotation = Input.get_gyroscope().z
 		rotate(-gyro_rotation * delta * rotation_factor)
+	if abs(rotation_degrees) > 90:
+		$SpillGuard.disabled = true
+	else:
+		$SpillGuard.disabled = false
 
 
 func _input(event):

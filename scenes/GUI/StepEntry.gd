@@ -14,6 +14,7 @@ func init_step(step):
 	elif step['step_type'] == GHelper.STEP_TYPES.POUR_OUT:
 		$StepType.text = 'Pour out'
 		$Volume/Value.text = str(step['volume'])
+		$Compound.text = 'the mixture'
 	elif step['step_type'] == GHelper.STEP_TYPES.POUR_IN:
 		$StepType.text = 'Pour in'
 		$Volume/Value.text = str(step['volume'])

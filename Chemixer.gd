@@ -65,24 +65,7 @@ func spawn_small_vial(for_animation=false):
 func _on_ClearVialsButton_pressed():
 	for vial in get_tree().get_nodes_in_group("vials"):
 		vial.queue_free()
-		
-		
-		
-		
-		
-		
-		#TODO remove line below
-		
-		
-		
-		
-	emit_signal("task_ready", mixture_contents, mixture_volume)
-
-
-func _on_ClearFluidsButton_pressed():
-#	for blob in get_tree().get_nodes_in_group(current_compound):
-#		blob.queue_free()
-	change_state(GHelper.STATES.MAIN_MENU)
+	
 
 
 func _on_MainVial_blob_poured_in(blob):
@@ -174,13 +157,6 @@ func calculate_avg_color():
 	return Color8(colors['r'], colors['g'], colors['b'])
 
 
-
-
-
-
-
-
-
 func _on_CreateTaskButton_pressed():
 	change_state(GHelper.STATES.INTERACTIVE)
 
@@ -190,6 +166,7 @@ func _on_SandboxButton_pressed():
 
 
 func change_state(new_state):
+	cleanup_game_objects()
 	if new_state == GHelper.STATES.INTERACTIVE:
 		print("Changing state to INTERACTIVE")
 		main_menu.hide()
@@ -199,6 +176,7 @@ func change_state(new_state):
 		stirring_rod.show()
 		step_list_container.hide()
 		tamp.show()
+		control_panel.show()
 		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.SANDBOX:
 		print("Changing state to SANDBOX")
@@ -209,6 +187,7 @@ func change_state(new_state):
 		stirring_rod.show()
 		step_list_container.hide()
 		tamp.show()
+		control_panel.show()
 		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.MAIN_MENU:
 		print("Changing state to MAIN_MENU")
@@ -234,17 +213,6 @@ func change_state(new_state):
 	state = new_state
 
 
-
-
-
-
-
-
-
-
-
-
-
 func _on_ExperimentButton_pressed():
 	change_state(GHelper.STATES.ANIMATION)
 
@@ -257,3 +225,46 @@ func _on_TaskController_step_entries_loaded(entries):
 
 func _on_AnimationController_spawn_blob(compound):
 	spawn_blob(compound)
+
+
+func _on_TaskController_replay():
+	clean_blobs()
+
+
+func _on_TaskController_answer_declined():
+	change_state(GHelper.STATES.MAIN_MENU)
+
+
+func cleanup_game_objects():
+	clean_blobs()
+	clean_vials()
+	clean_compound_entries()
+	main_vial.position = $MainVialRestPoint.position
+	main_vial.rotation_degrees = 0
+	stirring_rod.position = $StirringRodRestPoint.position
+	stirring_rod.rotation_degrees = 0
+	mixture_volume = 0
+	mixture_contents = {}
+
+
+func clean_blobs():
+	for blob in get_tree().get_nodes_in_group('blobs'):
+		blob.queue_free()
+
+
+func clean_vials():
+	for vial in get_tree().get_nodes_in_group('vials'):
+		vial.queue_free()
+
+
+func clean_compound_entries():
+	for entry in get_tree().get_nodes_in_group('entries'):
+		entry.queue_free()
+
+
+func _on_MainMenuButton_pressed():
+	change_state(GHelper.STATES.MAIN_MENU)
+
+
+func _on_SaveTaskButton_pressed():
+	emit_signal("task_ready", mixture_contents, mixture_volume)

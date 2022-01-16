@@ -7,7 +7,8 @@ var color
 var size_factor
 
 func _ready():
-	pass
+	add_to_group('blobs')
+	
 
 
 func _draw():

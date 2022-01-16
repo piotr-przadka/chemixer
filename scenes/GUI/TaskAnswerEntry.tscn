@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="CompoundLabel" type="Label" parent="."]
 margin_top = 5.0
-margin_right = 184.0
+margin_right = 148.0
 margin_bottom = 74.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
@@ -23,19 +23,28 @@ text = "Water"
 align = 2
 
 [node name="Spacer" type="Control" parent="."]
-margin_left = 188.0
-margin_right = 208.0
+margin_left = 152.0
+margin_right = 172.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 20, 0 )
 size_flags_stretch_ratio = 0.2
 
 [node name="CompoundInput" type="LineEdit" parent="."]
-margin_left = 212.0
-margin_right = 366.0
+margin_left = 176.0
+margin_right = 330.0
 margin_bottom = 79.0
 custom_fonts/font = ExtResource( 1 )
 text = "120.12"
 max_length = 6
+
+[node name="Percent" type="Label" parent="."]
+margin_left = 334.0
+margin_top = 5.0
+margin_right = 366.0
+margin_bottom = 74.0
+custom_fonts/font = ExtResource( 1 )
+text = "%"
+align = 2
 
 [node name="Spacer2" type="Control" parent="."]
 margin_left = 370.0

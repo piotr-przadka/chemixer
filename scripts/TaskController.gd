@@ -19,6 +19,8 @@ onready var answer_panel = $AnswerPanel
 signal task_loaded(steps)
 signal step_entries_loaded(entries)
 signal attempt_answer()
+signal replay()
+signal answer_declined()
 
 func _ready():
 	pass
@@ -150,3 +152,16 @@ func prepare_answer_entries():
 
 func _on_CheckButton_pressed():
 	emit_signal("attempt_answer")
+
+
+func _on_ReplayButton_pressed():
+	answer_panel.hide()
+	for entry in get_tree().get_nodes_in_group('answer_entries'):
+		entry.queue_free()
+	emit_signal('replay')
+	emit_signal("task_loaded", task_to_solve['steps'])
+
+
+func _on_MenuButton_pressed():
+	answer_panel.hide()
+	emit_signal('answer_declined')

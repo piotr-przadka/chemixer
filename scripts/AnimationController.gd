@@ -60,14 +60,16 @@ func animate_pour_in(compound, volume):
 		rest_timer.start(1)
 		yield(rest_timer, "timeout")
 
-		rotate_twin.interpolate_property(small_vial, "rotation_degrees", small_vial.rotation_degrees, -120, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+		rotate_twin.interpolate_property(small_vial, "rotation_degrees", small_vial.rotation_degrees, -120, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 		rotate_twin.start()
 		yield(rotate_twin, "tween_completed")
 		
 #		rest_timer.start(5)
-#		yield(rest_timer, "timeout")
-		
-		rotate_twin.interpolate_property(small_vial, "rotation_degrees", small_vial.rotation_degrees, 0, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+#		print("elo")
+		yield(get_tree().create_timer(3), "timeout")
+		rotate_twin.stop_all()
+		rotate_twin.interpolate_property(small_vial, "rotation_degrees", small_vial.rotation_degrees, 0, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+		rotate_twin.start()
 		yield(rotate_twin, "tween_completed")
 		
 #		rest_timer.start(5)
@@ -82,14 +84,14 @@ func animate_pour_in(compound, volume):
 func animate_pour_out(volume):
 	var pour_out_tween = Tween.new()
 	add_child(pour_out_tween)
-	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 107, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 107, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	pour_out_tween.start()
 	yield(pour_out_tween, "tween_completed")
 	
 	rest_timer.start(1.5 * volume / 100.0)
 	yield(rest_timer, "timeout")
 	
-	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 0, 4, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 0, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	pour_out_tween.start()
 	yield(pour_out_tween, "tween_completed")
 	emit_signal("step_animation_finished")
@@ -97,13 +99,13 @@ func animate_pour_out(volume):
 
 
 func animate_mix():
-	rotate_twin.interpolate_property(stirring_rod, "rotation_degrees", stirring_rod.rotation_degrees, 190, 3, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	rotate_twin.interpolate_property(stirring_rod, "rotation_degrees", stirring_rod.rotation_degrees, 190, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	rotate_twin.start()
-	move_twin.interpolate_property(stirring_rod, 'position', stir_rest_point, stir_before_point, 3, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	move_twin.interpolate_property(stirring_rod, 'position', stir_rest_point, stir_before_point, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	move_twin.start()
 	yield(move_twin, "tween_completed")
 	
-	move_twin.interpolate_property(stirring_rod, 'position', stir_before_point, stir_mix_1_point, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	move_twin.interpolate_property(stirring_rod, 'position', stir_before_point, stir_mix_1_point, 1, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	yield(move_twin, "tween_completed")
 
 	for i in range(3):
@@ -112,11 +114,11 @@ func animate_mix():
 		move_twin.interpolate_property(stirring_rod, 'position', stir_mix_2_point, stir_mix_1_point, 0.7, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 		yield(move_twin, "tween_completed")
 
-	move_twin.interpolate_property(stirring_rod, 'position', stir_mix_1_point, stir_before_point, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	move_twin.interpolate_property(stirring_rod, 'position', stir_mix_1_point, stir_before_point, 1, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	yield(move_twin, "tween_completed")
 	
-	move_twin.interpolate_property(stirring_rod, 'position', stir_before_point, stir_rest_point, 3, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
-	rotate_twin.interpolate_property(stirring_rod, "rotation_degrees", stirring_rod.rotation_degrees, 0, 3, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	move_twin.interpolate_property(stirring_rod, 'position', stir_before_point, stir_rest_point, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+	rotate_twin.interpolate_property(stirring_rod, "rotation_degrees", stirring_rod.rotation_degrees, 0, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	rotate_twin.start()
 	yield(move_twin, "tween_completed")
 
