@@ -10,7 +10,7 @@ func init_answer(compound, percentage):
 	answer = percentage
 	
 	#TODO: remove this
-	$CompoundInput.text = str(percentage)
+#	$CompoundInput.text = str(percentage)
 
 
 func check_answer():

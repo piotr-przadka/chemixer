@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/2D/MainVial.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 136, 188 )
+extents = Vector2( 126.906, 172.515 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 184, 228 )
@@ -31,7 +31,7 @@ color = Color( 0, 1, 0.0862745, 1 )
 color_ramp = SubResource( 5 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 181.081, 121 )
+extents = Vector2( 124.324, 85 )
 
 [node name="MainVial" type="KinematicBody2D"]
 position = Vector2( 549.213, 1920.86 )
@@ -52,11 +52,11 @@ polygon = PoolVector2Array( -168, -272, -168, 128, 152, 128, 152, -272, 128, -27
 collision_layer = 8
 collision_mask = 24
 space_override = 3
-gravity = 704.0
+gravity = 700.0
 linear_damp = 9.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnterArea"]
-position = Vector2( -5.21301, -108.86 )
+position = Vector2( -5.63226, -105.982 )
 shape = SubResource( 1 )
 
 [node name="ExitArea" type="Area2D" parent="."]
@@ -87,7 +87,7 @@ one_shot = true
 process_material = SubResource( 3 )
 
 [node name="SpillGuard" type="CollisionShape2D" parent="."]
-position = Vector2( -9.21301, -391.86 )
+position = Vector2( -5.21295, -355.86 )
 rotation = 3.14159
 scale = Vector2( 1.48, 1 )
 shape = SubResource( 6 )

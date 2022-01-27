@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/2D/StirringRod.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 10, 150 )
+extents = Vector2( 10, 148.953 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 20, 20 )
@@ -30,6 +30,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1.04688 )
 shape = SubResource( 3 )
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
@@ -47,7 +48,7 @@ position = Vector2( 0, 3.21924 )
 shape = SubResource( 6 )
 
 [node name="MixingTip2" type="StaticBody2D" parent="."]
-position = Vector2( 0, -138.191 )
+position = Vector2( 0, -136.658 )
 collision_layer = 32
 collision_mask = 32
 

@@ -36,7 +36,6 @@ func _input(event):
 func _on_TouchScreenButton_pressed():
 	touching = true
 
-
 func _on_TouchScreenButton_released():
 	touching = false
 	touch_offset = Vector2(0, 0)

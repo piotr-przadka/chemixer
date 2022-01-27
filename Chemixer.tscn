@@ -452,9 +452,9 @@ __meta__ = {
 [node name="AnswerPanel" type="PanelContainer" parent="TaskController"]
 visible = false
 margin_left = 99.0
-margin_top = 635.773
+margin_top = 500.0
 margin_right = 999.0
-margin_bottom = 1935.77
+margin_bottom = 1800.0
 custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -496,14 +496,14 @@ autowrap = true
 [node name="Spacer" type="Control" parent="TaskController/AnswerPanel/VBoxContainer"]
 margin_top = 525.0
 margin_right = 870.0
-margin_bottom = 1169.0
+margin_bottom = 1168.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ControlButtons" type="HBoxContainer" parent="TaskController/AnswerPanel/VBoxContainer"]
-margin_top = 1189.0
+margin_top = 1188.0
 margin_right = 870.0
-margin_bottom = 1269.0
+margin_bottom = 1268.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 custom_constants/separation = 10
@@ -613,6 +613,7 @@ __meta__ = {
 [connection signal="task_ready" from="." to="TaskController" method="_on_Chemixer_task_ready"]
 [connection signal="toggle_input" from="." to="MainVial" method="_on_Chemixer_toggle_input"]
 [connection signal="toggle_input" from="." to="StirringRod" method="_on_Chemixer_toggle_input"]
+[connection signal="toggle_input" from="." to="TaskController" method="_on_Chemixer_toggle_input"]
 [connection signal="pressed" from="MainMenu/MenuBackground/MenuOptions/CreateTaskButton" to="." method="_on_CreateTaskButton_pressed"]
 [connection signal="pressed" from="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/SolveTaskButton" to="TaskController" method="_on_SolveTaskButton_pressed"]
 [connection signal="item_selected" from="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" to="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" method="_on_TaskSelector_item_selected"]

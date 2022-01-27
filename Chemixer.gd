@@ -220,6 +220,8 @@ func _on_ExperimentButton_pressed():
 
 
 func _on_TaskController_step_entries_loaded(entries):
+	for entry in get_tree().get_nodes_in_group('step_entries'):
+		entry.queue_free()
 	change_state(GHelper.STATES.ANIMATION)
 	for entry in entries:
 		step_entries_list.add_child(entry)

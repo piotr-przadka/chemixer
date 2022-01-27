@@ -1,5 +1,7 @@
 extends Node
 
+var recording : bool
+
 var current_compound = null
 var current_step_type = null
 var current_volume = 0
@@ -27,6 +29,9 @@ func _ready():
 
 
 func _on_MainVial_blob_poured_in(blob):
+	if not recording:
+		return
+
 	if not current_compound:
 		current_compound = blob.compound
 	if not current_compound == blob.compound or not current_step_type == GHelper.STEP_TYPES.POUR_IN:
@@ -40,6 +45,9 @@ func _on_MainVial_blob_poured_in(blob):
  
 
 func _on_MainVial_blob_poured_out(blob):
+	if not recording:
+		return
+
 	if not current_step_type == GHelper.STEP_TYPES.POUR_OUT:
 		save_step()
 		current_step_type = GHelper.STEP_TYPES.POUR_OUT
@@ -49,6 +57,9 @@ func _on_MainVial_blob_poured_out(blob):
 
 
 func _on_MainVial_mix():
+	if not recording:
+		return
+
 	if current_step_type == GHelper.STEP_TYPES.MIX or current_volume == 0:
 		return
 	else:
@@ -142,6 +153,8 @@ func _on_AnimationController_animation_completed():
 
 
 func prepare_answer_entries():
+	for entry in get_tree().get_nodes_in_group('answer_entries'):
+		entry.queue_free()
 	var percentages = task_to_solve['mixture_stats']['content_percentage']
 	for compound in percentages.keys():
 		var answer_entry = answer_entry_scene.instance()
@@ -165,3 +178,7 @@ func _on_ReplayButton_pressed():
 func _on_MenuButton_pressed():
 	answer_panel.hide()
 	emit_signal('answer_declined')
+
+
+func _on_Chemixer_toggle_input(disabled):
+	recording = !disabled

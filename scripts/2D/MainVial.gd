@@ -55,9 +55,10 @@ func _on_TouchScreenButton_released():
 
 
 func _on_Area2D_body_entered(body):
-	if body.type == 'blob':
+	if body.type == 'blob' and not body.is_in_group('in_main_vial'):
 		print('entered')	
-		mix_timer.start(7)
+#		mix_timer.start(7)
+		body.add_to_group('in_main_vial')
 		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
 	elif body.type == 'stirring_rod':
@@ -66,8 +67,9 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_Area2D_body_exited(body):
-	if body.type == 'blob':
+	if body.type == 'blob' and body.is_in_group('in_main_vial'):
 		print('exited')	
+		body.remove_from_group('in_main_vial')
 		body.reset_collision_plane()
 		emit_signal("blob_poured_out", body)
 	elif body.type == 'stirring_rod':

@@ -10,7 +10,6 @@ func _ready():
 	add_to_group('blobs')
 	
 
-
 func _draw():
 	draw_circle(Vector2(0, 0), $CollisionShape2D.shape.radius * 1.8, color)
 
