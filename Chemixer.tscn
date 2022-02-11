@@ -325,6 +325,7 @@ margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 5 )
+disabled = true
 text = "Save Task"
 align = 2
 expand_icon = true
@@ -606,6 +607,9 @@ amount = 7
 speed_scale = 0.6
 process_material = SubResource( 12 )
 
+[node name="BlobTimer" type="Timer" parent="GUI/SpawnBlobButton"]
+wait_time = 0.2
+
 [node name="TaskController" type="Node" parent="."]
 script = ExtResource( 6 )
 
@@ -780,8 +784,11 @@ one_shot = true
 [connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/SaveButton" to="GUI/SaveDialog" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/ContinueButton" to="GUI/SaveDialog" method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/DiscardButton" to="GUI/SaveDialog" method="_on_DiscardButton_pressed"]
+[connection signal="button_down" from="GUI/SpawnBlobButton" to="GUI/SpawnBlobButton" method="_on_SpawnBlobButton_button_down"]
+[connection signal="button_up" from="GUI/SpawnBlobButton" to="GUI/SpawnBlobButton" method="_on_SpawnBlobButton_button_up"]
 [connection signal="pressed" from="GUI/SpawnBlobButton" to="." method="_on_SpawnBlobButton_pressed"]
 [connection signal="pressed" from="GUI/SpawnBlobButton" to="GUI/SpawnBlobButton" method="_on_SpawnBlobButton_pressed"]
+[connection signal="timeout" from="GUI/SpawnBlobButton/BlobTimer" to="GUI/SpawnBlobButton" method="_on_BlobTimer_timeout"]
 [connection signal="answer_declined" from="TaskController" to="." method="_on_TaskController_answer_declined"]
 [connection signal="replay" from="TaskController" to="." method="_on_TaskController_replay"]
 [connection signal="step_entries_loaded" from="TaskController" to="." method="_on_TaskController_step_entries_loaded"]

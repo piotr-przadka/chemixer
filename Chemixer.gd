@@ -15,6 +15,7 @@ onready var control_panel = $GUI/ControlPanel
 onready var tamp = $TAMP
 onready var save_dialog = $GUI/SaveDialog
 onready var spawn_blob_button = $GUI/SpawnBlobButton
+onready var save_task_button = $GUI/ControlPanel/HBoxContainer/SaveTaskButton
 
 var current_compound = "H20"
 var current_color = GHelper.compounds[current_compound]['color']
@@ -101,6 +102,12 @@ func _on_MainVial_blob_poured_out(blob):
 
 
 func recalculate_mixture_contents():
+	if mixture_contents.keys().empty():
+		save_task_button.disabled = true
+		return
+	else:
+		save_task_button.disabled = false
+	
 	for compound in mixture_contents.keys():
 		var percent = stepify(float(mixture_contents[compound]) / mixture_volume * 100, 0.001)
 		emit_signal('update_entry', compound, mixture_contents[compound], percent)
