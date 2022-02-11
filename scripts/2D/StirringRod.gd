@@ -23,8 +23,12 @@ func _input(event):
 		return
 	
 	if event is InputEventScreenTouch and touching:
+		if event.index > 0:
+			return
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
+		if event.index > 0:
+			return
 		position = event.position + touch_offset
 	elif event is InputEventKey and touching:
 		if event.pressed:

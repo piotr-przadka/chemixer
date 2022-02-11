@@ -33,8 +33,12 @@ func _input(event):
 		return
 	
 	if event is InputEventScreenTouch and touching:
+		if event.index > 0:
+			return
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
+		if event.index > 0:
+			return
 		position = event.position + touch_offset
 	elif event is InputEventKey and touching:
 		if event.pressed:
@@ -63,7 +67,7 @@ func _on_Area2D_body_entered(body):
 		emit_signal('blob_poured_in', body)
 	elif body.type == 'stirring_rod':
 		print('stirring_rod detected')
-		mix_timer.start(4)
+		mix_timer.start(3)
 
 
 func _on_Area2D_body_exited(body):
@@ -78,7 +82,6 @@ func _on_Area2D_body_exited(body):
 
 
 func _on_MixTimer_timeout():
-	print('mixing!')
 	emit_signal('mix')
 
 

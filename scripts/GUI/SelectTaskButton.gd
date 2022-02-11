@@ -3,7 +3,8 @@ extends OptionButton
 signal selected_task_changed(file_path)
 
 func _ready():
-	load_tasks()
+#	load_tasks()
+	pass
 
 func load_tasks():
 	clear()

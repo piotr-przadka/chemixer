@@ -21,6 +21,7 @@ func set_compound(init_compound):
 	$CollisionShape2D.shape = CircleShape2D.new()
 	$CollisionShape2D.shape.radius = 20 * size_factor
 	add_to_group(compound)
+	$Particles.process_material.color = color
 
 
 func set_collision_plane(layer):
@@ -40,4 +41,5 @@ func reset_collision_plane():
 
 func set_color(new_color):
 	color = new_color
+	$Particles.process_material.color = color
 	update()

@@ -14,8 +14,9 @@ onready var step_list_container = $GUI/StepList
 onready var control_panel = $GUI/ControlPanel
 onready var tamp = $TAMP
 onready var save_dialog = $GUI/SaveDialog
+onready var spawn_blob_button = $GUI/SpawnBlobButton
 
-var current_compound = "water"
+var current_compound = "H20"
 var current_color = GHelper.compounds[current_compound]['color']
 var mixture_volume = 0
 var mixture_contents = {}
@@ -35,6 +36,8 @@ func _ready():
 	var dir = Directory.new()
 	dir.open("user://")
 	dir.make_dir("tasks")
+	$TaskController.save_task(GHelper.example_task, 'Example Task')
+	emit_signal("reload_tasks")
 	print(OS.get_data_dir())
 #	print(range(0, 310))
 
@@ -54,7 +57,7 @@ func _on_NewVialButton_pressed():
 
 
 func spawn_small_vial(for_animation=false):
-	if get_small_vial_count() <= MAX_SMALL_VIAL_COUNT:
+	if get_small_vial_count() < MAX_SMALL_VIAL_COUNT:
 		var new_small_vial = small_vial_scene.instance()
 		new_small_vial.init(get_small_vial_count())
 		add_child(new_small_vial)
@@ -179,6 +182,7 @@ func change_state(new_state):
 		step_list_container.hide()
 		tamp.show()
 		control_panel.show()
+		spawn_blob_button.show()		
 		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.SANDBOX:
 		print("Changing state to SANDBOX")
@@ -190,6 +194,7 @@ func change_state(new_state):
 		step_list_container.hide()
 		tamp.show()
 		control_panel.show()
+		spawn_blob_button.show()		
 		emit_signal('toggle_input', false)
 	elif new_state == GHelper.STATES.MAIN_MENU:
 		print("Changing state to MAIN_MENU")
@@ -210,6 +215,7 @@ func change_state(new_state):
 		stirring_rod.show()
 		step_list_container.show()
 		tamp.show()
+		spawn_blob_button.hide()
 		spawn_small_vial(true)
 		emit_signal('toggle_input', true)
 	state = new_state

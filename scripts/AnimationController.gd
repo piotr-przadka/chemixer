@@ -108,7 +108,7 @@ func animate_mix():
 	move_twin.interpolate_property(stirring_rod, 'position', stir_before_point, stir_mix_1_point, 1, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	yield(move_twin, "tween_completed")
 
-	for i in range(3):
+	for i in range(2):
 		move_twin.interpolate_property(stirring_rod, 'position', stir_mix_1_point, stir_mix_2_point, 0.7, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 		yield(move_twin, "tween_completed")
 		move_twin.interpolate_property(stirring_rod, 'position', stir_mix_2_point, stir_mix_1_point, 0.7, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)

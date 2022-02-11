@@ -16,6 +16,7 @@ onready var step_entry_scene = preload("res://scenes/GUI/StepEntry.tscn")
 onready var answer_entry_scene = preload("res://scenes/GUI/TaskAnswerEntry.tscn")
 onready var answer_entry_list = $AnswerPanel/VBoxContainer
 onready var task_label = $AnswerPanel/VBoxContainer/TaskLabel
+onready var spacer = $AnswerPanel/VBoxContainer/Spacer
 onready var answer_panel = $AnswerPanel
 
 signal task_loaded(steps)
@@ -94,6 +95,7 @@ func _on_Chemixer_task_ready(mixture_contents, mixture_volume, task_file_name):
 			'total_volume': mixture_volume
 		}
 	}
+
 	save_task(task, task_file_name)
 
 
@@ -160,7 +162,7 @@ func prepare_answer_entries():
 		var answer_entry = answer_entry_scene.instance()
 		answer_entry.init_answer(compound, percentages[compound])
 		connect('attempt_answer', answer_entry, 'check_answer')
-		answer_entry_list.add_child_below_node(task_label, answer_entry)
+		answer_entry_list.add_child_below_node(spacer, answer_entry)
 
 
 func _on_CheckButton_pressed():

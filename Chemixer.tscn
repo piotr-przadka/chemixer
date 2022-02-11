@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
@@ -14,6 +14,10 @@
 [ext_resource path="res://scripts/GUI/SelectTaskButton.gd" type="Script" id=12]
 [ext_resource path="res://scripts/AnimationController.gd" type="Script" id=13]
 [ext_resource path="res://scripts/GUI/SaveDialog.gd" type="Script" id=14]
+[ext_resource path="res://scripts/GUI/SpawnBlobButton.gd" type="Script" id=15]
+[ext_resource path="res://assets/images/add.png" type="Texture" id=16]
+[ext_resource path="res://assets/images/floppy-disk.png" type="Texture" id=17]
+[ext_resource path="res://assets/images/logout.png" type="Texture" id=18]
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 200.0
@@ -51,6 +55,49 @@ corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.101961, 1, 0, 1 )
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.101961, 1, 0, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.432836, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.745304, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+emission_shape = 2
+emission_box_extents = Vector3( 90, 30, 0 )
+flag_disable_z = true
+gravity = Vector3( 0, -10, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 10.0
+color = Color( 1, 0.890196, 0, 1 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+emission_shape = 2
+emission_box_extents = Vector3( 300, 45, 0 )
+flag_disable_z = true
+gravity = Vector3( 0, -10, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 10.0
+color = Color( 0, 1, 0.0705882, 1 )
+color_ramp = SubResource( 10 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 15.0
@@ -148,6 +195,7 @@ text = "hello"
 script = ExtResource( 12 )
 
 [node name="ExperimentButton" type="Button" parent="MainMenu/MenuBackground/MenuOptions"]
+visible = false
 margin_top = 824.0
 margin_right = 680.0
 margin_bottom = 1024.0
@@ -199,6 +247,48 @@ position = Vector2( 549.213, 1817.26 )
 [node name="StirringRod" parent="." instance=ExtResource( 9 )]
 position = Vector2( 110, 1639.39 )
 
+[node name="TAMP" type="Control" parent="."]
+margin_left = 641.0
+margin_top = 650.773
+margin_right = 681.0
+margin_bottom = 690.773
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="TAMP"]
+margin_left = 200.346
+margin_top = -116.109
+margin_right = 279.346
+margin_bottom = 26.8906
+mouse_filter = 2
+color = Color( 0.109804, 0.101961, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="TAMP"]
+margin_left = 207.0
+margin_top = 27.0
+margin_right = 271.0
+margin_bottom = 61.0
+mouse_filter = 2
+color = Color( 0.109804, 0.101961, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="TAMP"]
+margin_left = 191.0
+margin_top = -171.0
+margin_right = 439.0
+margin_bottom = -83.0
+mouse_filter = 2
+color = Color( 0.109804, 0.101961, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -214,7 +304,6 @@ margin_right = 1080.0
 margin_bottom = 2160.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -231,42 +320,87 @@ __meta__ = {
 }
 
 [node name="SaveTaskButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_right = 160.0
+margin_right = 227.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 5 )
 text = "Save Task"
+align = 2
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="GUI/ControlPanel/HBoxContainer/SaveTaskButton"]
+margin_left = 22.0
+margin_top = 22.0
+margin_right = 100.0
+margin_bottom = 108.0
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NewVialButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 210.0
-margin_right = 382.0
+margin_left = 277.0
+margin_right = 505.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 5 )
-text = "New  Small Vial"
+align = 2
+expand_icon = true
 
-[node name="SpawnBlobButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 432.0
-margin_right = 592.0
-margin_bottom = 132.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Label" type="Label" parent="GUI/ControlPanel/HBoxContainer/NewVialButton"]
+margin_left = 97.0
+margin_top = 22.0
+margin_right = 225.0
+margin_bottom = 109.0
 custom_fonts/font = ExtResource( 5 )
-text = "Spawn Blob"
+text = "New
+Small Vial"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="GUI/ControlPanel/HBoxContainer/NewVialButton"]
+margin_left = 17.0
+margin_top = 23.47
+margin_right = 95.0
+margin_bottom = 109.47
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MainMenuButton" type="Button" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 642.0
-margin_right = 802.0
+margin_left = 555.0
+margin_right = 782.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 5 )
 text = "Main Menu"
+align = 2
+expand_icon = true
+
+[node name="TextureRect2" type="TextureRect" parent="GUI/ControlPanel/HBoxContainer/MainMenuButton"]
+margin_left = 27.0
+margin_top = 30.0
+margin_right = 105.0
+margin_bottom = 116.0
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CompoundSelect" type="OptionButton" parent="GUI/ControlPanel/HBoxContainer"]
-margin_left = 852.0
+margin_left = 832.0
 margin_right = 1060.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
@@ -287,7 +421,7 @@ text = "show files"
 [node name="CurrentStats" type="PanelContainer" parent="GUI"]
 margin_left = 10.0
 margin_top = 56.0
-margin_right = 531.0
+margin_right = 800.0
 margin_bottom = 256.0
 rect_min_size = Vector2( 0, 200 )
 custom_styles/panel = SubResource( 2 )
@@ -298,13 +432,13 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/CurrentStats"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 501.0
+margin_right = 770.0
 margin_bottom = 180.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MaterialsLabel" type="Label" parent="GUI/CurrentStats/VBoxContainer"]
-margin_right = 481.0
+margin_right = 750.0
 margin_bottom = 69.0
 custom_fonts/font = ExtResource( 8 )
 text = "Currently used compounds:"
@@ -432,6 +566,46 @@ custom_colors/font_color_pressed = Color( 1, 0, 0, 1 )
 custom_fonts/font = ExtResource( 11 )
 text = "Discard"
 
+[node name="SpawnBlobButton" type="Button" parent="GUI"]
+margin_left = 832.0
+margin_top = 480.0
+margin_right = 1080.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color_disabled = Color( 0.101961, 1, 0, 1 )
+custom_colors/font_color_focus = Color( 0.101961, 1, 0, 1 )
+custom_colors/font_color = Color( 0.101961, 1, 0, 1 )
+custom_colors/font_color_hover = Color( 0.101961, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.101961, 1, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = SubResource( 8 )
+text = "Spawn Blob"
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpawnParticles" type="Particles2D" parent="GUI/SpawnBlobButton"]
+position = Vector2( 48, 231.773 )
+scale = Vector2( 0.43999, 0.640005 )
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 2.0
+process_material = SubResource( 11 )
+
+[node name="IdleParticles" type="Particles2D" parent="GUI/SpawnBlobButton"]
+position = Vector2( 120, 48 )
+scale = Vector2( 0.43999, 0.640005 )
+amount = 7
+speed_scale = 0.6
+process_material = SubResource( 12 )
+
 [node name="TaskController" type="Node" parent="."]
 script = ExtResource( 6 )
 
@@ -478,15 +652,15 @@ valign = 1
 [node name="Spacer2" type="Control" parent="TaskController/AnswerPanel/VBoxContainer"]
 margin_top = 144.0
 margin_right = 870.0
-margin_bottom = 272.0
+margin_bottom = 259.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="TaskLabel" type="Label" parent="TaskController/AnswerPanel/VBoxContainer"]
-margin_top = 292.0
+margin_top = 279.0
 margin_right = 870.0
-margin_bottom = 505.0
+margin_bottom = 492.0
 custom_fonts/font = ExtResource( 8 )
 text = "Your task is to list the percentages of all chemical compounds after the last step of the task."
 align = 1
@@ -494,16 +668,24 @@ valign = 1
 autowrap = true
 
 [node name="Spacer" type="Control" parent="TaskController/AnswerPanel/VBoxContainer"]
-margin_top = 525.0
+margin_top = 512.0
 margin_right = 870.0
-margin_bottom = 1168.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Spacer3" type="Control" parent="TaskController/AnswerPanel/VBoxContainer"]
+margin_top = 590.0
+margin_right = 870.0
+margin_bottom = 1170.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ControlButtons" type="HBoxContainer" parent="TaskController/AnswerPanel/VBoxContainer"]
-margin_top = 1188.0
+margin_top = 1190.0
 margin_right = 870.0
-margin_bottom = 1268.0
+margin_bottom = 1270.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 custom_constants/separation = 10
@@ -568,45 +750,6 @@ position = Vector2( 660.793, 1639.39 )
 wait_time = 0.5
 one_shot = true
 
-[node name="TAMP" type="Control" parent="."]
-margin_left = 641.0
-margin_top = 650.773
-margin_right = 681.0
-margin_bottom = 690.773
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="TAMP"]
-margin_left = 200.346
-margin_top = -116.109
-margin_right = 279.346
-margin_bottom = 26.8906
-color = Color( 0.109804, 0.101961, 0.101961, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect2" type="ColorRect" parent="TAMP"]
-margin_left = 207.0
-margin_top = 27.0
-margin_right = 271.0
-margin_bottom = 61.0
-color = Color( 0.109804, 0.101961, 0.101961, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect3" type="ColorRect" parent="TAMP"]
-margin_left = 191.0
-margin_top = -171.0
-margin_right = 439.0
-margin_bottom = -83.0
-color = Color( 0.109804, 0.101961, 0.101961, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="animation_vial_spawned" from="." to="AnimationController" method="_on_Chemixer_animation_vial_spawned"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="reload_tasks" from="." to="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" method="_on_Chemixer_reload_tasks"]
@@ -628,7 +771,6 @@ __meta__ = {
 [connection signal="mix" from="MainVial" to="TaskController" method="_on_MainVial_mix"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/SaveTaskButton" to="." method="_on_SaveTaskButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/NewVialButton" to="." method="_on_NewVialButton_pressed"]
-[connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/SpawnBlobButton" to="." method="_on_SpawnBlobButton_pressed"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="item_selected" from="GUI/ControlPanel/HBoxContainer/CompoundSelect" to="." method="_on_CompoundSelect_item_selected"]
 [connection signal="pressed" from="GUI/ControlPanel/HBoxContainer/TaskListButton" to="TaskController" method="_on_TaskListButton_pressed"]
@@ -638,6 +780,8 @@ __meta__ = {
 [connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/SaveButton" to="GUI/SaveDialog" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/ContinueButton" to="GUI/SaveDialog" method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="GUI/SaveDialog/VBoxContainer/SaveControl/DiscardButton" to="GUI/SaveDialog" method="_on_DiscardButton_pressed"]
+[connection signal="pressed" from="GUI/SpawnBlobButton" to="." method="_on_SpawnBlobButton_pressed"]
+[connection signal="pressed" from="GUI/SpawnBlobButton" to="GUI/SpawnBlobButton" method="_on_SpawnBlobButton_pressed"]
 [connection signal="answer_declined" from="TaskController" to="." method="_on_TaskController_answer_declined"]
 [connection signal="replay" from="TaskController" to="." method="_on_TaskController_replay"]
 [connection signal="step_entries_loaded" from="TaskController" to="." method="_on_TaskController_step_entries_loaded"]
