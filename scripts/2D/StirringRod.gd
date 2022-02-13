@@ -9,7 +9,7 @@ var touch_offset
 var input_disabled = false
 
 func _ready():
-	pass
+	$Particles.emitting = false
 
 
 func _process(delta):
@@ -47,3 +47,7 @@ func _on_TouchScreenButton_released():
 
 func _on_Chemixer_toggle_input(enabled):
 	input_disabled = enabled
+
+
+func toggle_particles(emitting):
+	$Particles.emitting = emitting

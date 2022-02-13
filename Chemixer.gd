@@ -294,3 +294,7 @@ func _on_SaveDialog_request_main_menu():
 func _on_SaveDialog_save_task(task_file_name):
 	emit_signal("task_ready", mixture_contents, mixture_volume, task_file_name)
 	emit_signal("reload_tasks")
+
+
+func _on_ExitButton_pressed():
+	get_tree().quit()

@@ -32,12 +32,22 @@ func set_collision_plane(layer):
 		else:
 			set_collision_layer_bit(layer_index, false)
 			set_collision_mask_bit(layer_index, false)
+	
+	if layer == 3:
+		set_collision_layer_bit(5, true)
+		set_collision_mask_bit(5, true)
+	else:
+		set_collision_layer_bit(5, false)
+		set_collision_mask_bit(5, false)
+	
+	print(collision_layer)
 
 
 func reset_collision_plane():
-	for layer_index in range(0, 5):
+	for layer_index in range(0, 6):
 		set_collision_layer_bit(layer_index, true)
 		set_collision_mask_bit(layer_index, true)
+
 
 func set_color(new_color):
 	color = new_color

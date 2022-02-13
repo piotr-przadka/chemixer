@@ -66,8 +66,8 @@ func _on_Area2D_body_entered(body):
 		body.set_collision_plane(3)
 		emit_signal('blob_poured_in', body)
 	elif body.type == 'stirring_rod':
-		print('stirring_rod detected')
-		mix_timer.start(3)
+		body.toggle_particles(true)
+		mix_timer.start(2.5)
 
 
 func _on_Area2D_body_exited(body):
@@ -77,7 +77,7 @@ func _on_Area2D_body_exited(body):
 		body.reset_collision_plane()
 		emit_signal("blob_poured_out", body)
 	elif body.type == 'stirring_rod':
-		print('stirring_rod exited')
+		body.toggle_particles(false)
 		mix_timer.stop()
 
 

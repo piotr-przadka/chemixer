@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/2D/StirringRod.gd" type="Script" id=2]
 
@@ -10,6 +10,24 @@ extents = Vector2( 20, 20 )
 
 [sub_resource type="CapsuleShape2D" id=6]
 height = 1.60364
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.432836, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.745304, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 2
+emission_box_extents = Vector3( 80, 350, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -10, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 20.0
+color = Color( 0.156863, 0.156863, 0.156863, 1 )
+color_ramp = SubResource( 8 )
 
 [node name="StirringRod" type="KinematicBody2D"]
 position = Vector2( 782.859, 1022.5 )
@@ -54,6 +72,14 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MixingTip2"]
 shape = SubResource( 6 )
+
+[node name="Particles" type="Particles2D" parent="."]
+position = Vector2( -3.8147e-06, -1.52588e-05 )
+scale = Vector2( 0.4, 0.4 )
+emitting = false
+amount = 50
+speed_scale = 0.5
+process_material = SubResource( 10 )
 
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
