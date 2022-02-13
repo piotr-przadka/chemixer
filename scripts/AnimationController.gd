@@ -88,7 +88,7 @@ func animate_pour_out(volume):
 	pour_out_tween.start()
 	yield(pour_out_tween, "tween_completed")
 	
-	rest_timer.start(1.5 * volume / 100.0)
+	rest_timer.start((1.2 * volume / 100.0) - 1)
 	yield(rest_timer, "timeout")
 	
 	pour_out_tween.interpolate_property(main_vial, "rotation_degrees", main_vial.rotation_degrees, 0, 2, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)

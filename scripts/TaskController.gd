@@ -184,3 +184,7 @@ func _on_MenuButton_pressed():
 
 func _on_Chemixer_toggle_input(disabled):
 	recording = !disabled
+
+
+func _on_Chemixer_reset_recorded_steps():
+	steps = []

@@ -228,6 +228,16 @@ rect_min_size = Vector2( 0, 200 )
 custom_fonts/font = ExtResource( 8 )
 text = "Exit"
 
+[node name="IconAttributionLabel" type="Label" parent="MainMenu"]
+margin_left = 840.0
+margin_top = 2128.0
+margin_right = 1070.0
+margin_bottom = 2142.0
+text = "Icons by FlatIcon: www.flaticon.com"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HowToPlayScreen" type="TextureRect" parent="MainMenu"]
 visible = false
 margin_right = 1080.0
@@ -803,6 +813,7 @@ one_shot = true
 [connection signal="animation_vial_spawned" from="." to="AnimationController" method="_on_Chemixer_animation_vial_spawned"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="reload_tasks" from="." to="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" method="_on_Chemixer_reload_tasks"]
+[connection signal="reset_recorded_steps" from="." to="TaskController" method="_on_Chemixer_reset_recorded_steps"]
 [connection signal="task_ready" from="." to="TaskController" method="_on_Chemixer_task_ready"]
 [connection signal="toggle_input" from="." to="MainVial" method="_on_Chemixer_toggle_input"]
 [connection signal="toggle_input" from="." to="StirringRod" method="_on_Chemixer_toggle_input"]

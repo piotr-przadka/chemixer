@@ -31,6 +31,7 @@ signal task_ready(mixture_contents, mixture_volume, task_file_name)
 signal toggle_input(disabled)
 signal animation_vial_spawned(vial)
 signal reload_tasks()
+signal reset_recorded_steps()
 
 func _ready():
 	change_state(GHelper.STATES.MAIN_MENU)
@@ -262,6 +263,7 @@ func cleanup_game_objects():
 	stirring_rod.rotation_degrees = 0
 	mixture_volume = 0
 	mixture_contents = {}
+	emit_signal('reset_recorded_steps')
 
 
 func clean_blobs():
