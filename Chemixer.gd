@@ -62,7 +62,7 @@ func spawn_small_vial(for_animation=false):
 	if get_small_vial_count() < MAX_SMALL_VIAL_COUNT:
 		var new_small_vial = small_vial_scene.instance()
 		new_small_vial.init(get_small_vial_count())
-		add_child(new_small_vial)
+		add_child_below_node(stirring_rod, new_small_vial)
 		new_small_vial.position = $SmallVialSpawnPoint.position
 		connect('toggle_input', new_small_vial, 'request_disable_input')
 		if for_animation:
@@ -80,6 +80,8 @@ func _on_MainVial_blob_poured_in(blob):
 	if blob.compound in mixture_contents:
 		mixture_contents[blob.compound] += blob.volume
 	else:
+		if state == GHelper.STATES.INTERACTIVE or state == GHelper.STATES.SANDBOX:
+			check_for_water_to_acid_event(blob.compound)
 		mixture_contents[blob.compound] = blob.volume
 		var new_entry = compound_entry_scene.instance()
 		new_entry.init_material(blob.compound)
@@ -298,5 +300,31 @@ func _on_SaveDialog_save_task(task_file_name):
 	emit_signal("reload_tasks")
 
 
+func check_for_water_to_acid_event(new_compound):
+	if not GHelper.compounds[new_compound]['name'] == 'acid':
+		return
+	
+	var water_only = false
+	
+	for compound in mixture_contents.keys():
+		if GHelper.compounds[compound]['name'] == 'water':
+			water_only = true
+		elif GHelper.compounds[compound]['name'] == 'acid':
+			return
+	
+	if water_only:
+		show_water_to_acid_alert()
+
+
+func show_water_to_acid_alert():
+	emit_signal("toggle_input", true)
+	$WaterToAcidAlert.show()
+
+
 func _on_ExitButton_pressed():
 	get_tree().quit()
+
+
+func _on_WTAExitButton_pressed():
+	emit_signal("toggle_input", false)
+	$WaterToAcidAlert.hide()

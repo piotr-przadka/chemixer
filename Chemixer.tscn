@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/GUI/CompoundSelect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/2D/MainVial.tscn" type="PackedScene" id=2]
@@ -111,6 +111,13 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id=13]
+content_margin_left = 200.0
+content_margin_right = 200.0
+content_margin_top = 200.0
+content_margin_bottom = 200.0
+bg_color = Color( 0, 0, 0, 0.905882 )
 
 [node name="Chemixer" type="Node2D"]
 script = ExtResource( 3 )
@@ -811,6 +818,76 @@ position = Vector2( 660.793, 1639.39 )
 wait_time = 0.5
 one_shot = true
 
+[node name="WaterToAcidAlert" type="PanelContainer" parent="."]
+visible = false
+margin_right = 1088.0
+margin_bottom = 2216.0
+custom_styles/panel = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WTAVBox" type="VBoxContainer" parent="WaterToAcidAlert"]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 888.0
+margin_bottom = 2016.0
+alignment = 1
+
+[node name="WTAText" type="RichTextLabel" parent="WaterToAcidAlert/WTAVBox"]
+margin_top = 277.0
+margin_right = 688.0
+margin_bottom = 477.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/normal_font = ExtResource( 10 )
+bbcode_enabled = true
+bbcode_text = "[center][shake rate=50 level=10][color=red]Watch out!!![/color][/shake][/center]"
+text = "Watch out!!!"
+
+[node name="WTAText2" type="RichTextLabel" parent="WaterToAcidAlert/WTAVBox"]
+margin_top = 481.0
+margin_right = 688.0
+margin_bottom = 1131.0
+rect_min_size = Vector2( 0, 650 )
+custom_fonts/normal_font = ExtResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[center]
+I hope you were wearing your protective glasses and gloves.
+
+Remember, never pour water into a vial containing acid. Pour the water first and then continue with the acid.
+[/center]"
+text = "
+I hope you were wearing your protective glasses and gloves.
+
+Remember, never pour water into a vial containing acid. Pour the water first and then continue with the acid.
+"
+
+[node name="Spacer" type="Control" parent="WaterToAcidAlert/WTAVBox"]
+margin_top = 1135.0
+margin_right = 688.0
+margin_bottom = 1335.0
+rect_min_size = Vector2( 0, 200 )
+
+[node name="WTAExitButton" type="Button" parent="WaterToAcidAlert/WTAVBox"]
+margin_top = 1339.0
+margin_right = 688.0
+margin_bottom = 1539.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/font = ExtResource( 8 )
+clip_text = true
+
+[node name="Label" type="Label" parent="WaterToAcidAlert/WTAVBox/WTAExitButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 8 )
+text = "I understand and will be more careful in the future."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="animation_vial_spawned" from="." to="AnimationController" method="_on_Chemixer_animation_vial_spawned"]
 [connection signal="mixture_color_changed" from="." to="MainVial" method="_on_Chemixer_mixture_color_changed"]
 [connection signal="reload_tasks" from="." to="MainMenu/MenuBackground/MenuOptions/SolveTaskContainer/TaskSelector" method="_on_Chemixer_reload_tasks"]
@@ -859,3 +936,4 @@ one_shot = true
 [connection signal="pressed" from="TaskController/AnswerPanel/VBoxContainer/ControlButtons/MenuButton" to="TaskController" method="_on_MenuButton_pressed"]
 [connection signal="animation_completed" from="AnimationController" to="TaskController" method="_on_AnimationController_animation_completed"]
 [connection signal="spawn_blob" from="AnimationController" to="." method="_on_AnimationController_spawn_blob"]
+[connection signal="pressed" from="WaterToAcidAlert/WTAVBox/WTAExitButton" to="." method="_on_WTAExitButton_pressed"]
