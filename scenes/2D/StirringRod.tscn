@@ -81,5 +81,12 @@ amount = 50
 speed_scale = 0.5
 process_material = SubResource( 10 )
 
+[node name="RepositionTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="RepositionTween" type="Tween" parent="."]
+
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
+[connection signal="timeout" from="RepositionTimer" to="." method="_on_RepositionTimer_timeout"]

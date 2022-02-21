@@ -46,7 +46,7 @@ polygon = PoolVector2Array( -88, -265.07, -88, 118.93, 88, 118.93, 88, -265.07, 
 collision_layer = 0
 collision_mask = 0
 space_override = 3
-gravity = 703.477
+gravity = 700.0
 linear_damp = 9.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -66,7 +66,14 @@ amount = 50
 one_shot = true
 process_material = SubResource( 7 )
 
+[node name="RepositionTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="RepositionTween" type="Tween" parent="."]
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
+[connection signal="timeout" from="RepositionTimer" to="." method="_on_RepositionTimer_timeout"]

@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
 var type = 'stirring_rod'
-var rotation_factor = 4
+var rotation_factor = 2
 var touching : bool = false
 var dragged_position_delta
 var touch_offset
 
 var input_disabled = false
+
+onready var reposition_timer = $RepositionTimer
+onready var reposition_tween = $RepositionTween
 
 func _ready():
 	$Particles.emitting = false
@@ -23,12 +26,19 @@ func _input(event):
 		return
 	
 	if event is InputEventScreenTouch and touching:
+		reposition_timer.start()
 		if event.index > 0:
 			return
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
 		if event.index > 0:
 			return
+
+		reposition_timer.stop()
+		
+		if reposition_tween.is_active():
+			reposition_tween.stop(reposition_tween)
+
 		position = event.position + touch_offset
 	elif event is InputEventKey and touching:
 		if event.pressed:
@@ -51,3 +61,11 @@ func _on_Chemixer_toggle_input(enabled):
 
 func toggle_particles(emitting):
 	$Particles.emitting = emitting
+
+
+func _on_RepositionTimer_timeout():
+	if touching:
+		return
+	elif not reposition_tween.is_active() or rotation_degrees == 0:
+		reposition_tween.interpolate_property(self, "rotation_degrees", rotation_degrees, 0, 1, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+		reposition_tween.start()

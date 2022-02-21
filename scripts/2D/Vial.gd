@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var rotation_factor = 4
+var rotation_factor = 2
 var touching : bool = false
 var dragged_position_delta
 var touch_offset
@@ -8,6 +8,9 @@ var collision_layer_index
 var input_disabled = false
 
 var type = "small_vial"
+
+onready var reposition_timer = $RepositionTimer
+onready var reposition_tween = $RepositionTween
 
 func _ready():
 	add_to_group("vials")
@@ -33,10 +36,16 @@ func _input(event):
 		return
 	
 	if event is InputEventScreenTouch and touching:
+		reposition_timer.start()
 		if event.index > 0:
 			return
 		touch_offset = position - event.position
 	elif event is InputEventScreenDrag and touching:
+		reposition_timer.stop()
+		
+		if reposition_tween.is_active():
+			reposition_tween.stop(reposition_tween)
+		
 		if event.index > 0:
 			return
 		position = event.position + touch_offset
@@ -69,3 +78,12 @@ func _on_Area2D_body_exited(body):
 
 func request_disable_input(disabled):
 	input_disabled = disabled
+
+
+func _on_RepositionTimer_timeout():
+	if touching:
+		return
+	elif not reposition_tween.is_active() or rotation_degrees == 0:
+		reposition_tween.interpolate_property(self, "rotation_degrees", rotation_degrees, 0, 1, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+		reposition_tween.start()
+
